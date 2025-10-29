@@ -1,4 +1,5 @@
 import React from 'react';
+import ButtonCellSt from '../styled-components/ButtonCellSt.styled';
 
 interface SchulteCellProp {
   value: number;
@@ -6,5 +7,5 @@ interface SchulteCellProp {
 }
 
 export default function SchulteCell({ value, onClick }: SchulteCellProp) {
-  return <button onClick={() => onClick(value)}>{value}</button>;
+  return <ButtonCellSt onClick={() => onClick(value)}>{value}</ButtonCellSt>;
 }
