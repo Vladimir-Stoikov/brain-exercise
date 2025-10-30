@@ -1,0 +1,33 @@
+/* https://colorhunt.co/palette/0c2b4e1a3d641d546cf4f4f4 palette */
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital@0;1&display=swap');
+
+:root {
+  --primary: #1A3D64;
+  --secondary: #1D546C;
+  --text-color-light: #F4F4F4;
+  --background-color-dark: #0C2B4E;
+  --success-indicator-color: green;
+  --error-indicator-color: red;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin-top: 5%;
+  background-color: var(--background-color-dark);
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-color-light);
+}
