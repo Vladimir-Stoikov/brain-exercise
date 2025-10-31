@@ -7,8 +7,8 @@
   --secondary: #1D546C;
   --text-color-light: #F4F4F4;
   --background-color-dark: #0C2B4E;
-  --success-indicator-color: green;
-  --error-indicator-color: red;
+  --success-indicator-color: #3FBF8A;
+  --error-indicator-color: #E15555;
 }
 
 * {
