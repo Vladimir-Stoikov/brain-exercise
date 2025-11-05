@@ -13,7 +13,7 @@ export default function Schulte() {
     veryHard: 100,
   };
 
-  const difficultyLevel = 'easy';
+  const difficultyLevel = 'medium';
 
   return (
     <section>
