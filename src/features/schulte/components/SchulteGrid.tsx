@@ -6,13 +6,23 @@ interface SchulteGridProps {
   grid: number[];
 }
 
+const shuffle = (arr: number[]) => {
+  const basedArr = [...arr];
+  const resultArr: number[] = [];
+  for (let i = 0; i < 49; i++) {
+    resultArr.push(basedArr.splice(Math.random() * basedArr.length, 1)[0]);
+  }
+  return resultArr;
+};
+
 export default function SchulteGrid({ grid }: SchulteGridProps) {
-  const size = Math.sqrt(grid.length);
+  const shuffledGrid = shuffle(grid);
+  const size = Math.sqrt(shuffledGrid.length);
 
   return (
     <SectionGridSt $size={size}>
-      {grid.map(cellNum => {
-        return <SchulteCell key={cellNum} value={cellNum} onClick={() => console.log('click')} />;
+      {shuffledGrid.map((cellNum, id) => {
+        return <SchulteCell key={id} value={cellNum} onClick={() => console.log('click')} />;
       })}
     </SectionGridSt>
   );
