@@ -1,9 +1,11 @@
 import React from 'react';
 import ButtonCellSt from '../styled-components/ButtonCellSt.styled';
 
+type ValueType = number | '👁️';
+
 interface SchulteCellProp {
-  value: number;
-  onClick: (value: number) => void;
+  value: ValueType;
+  onClick: (value: ValueType) => void;
 }
 
 function generateLightColor() {

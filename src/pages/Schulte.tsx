@@ -14,11 +14,12 @@ export default function Schulte() {
   };
 
   const difficultyLevel = 'medium';
+  const gridArr = [...Array(difficulty[difficultyLevel]).keys()].map(cell => cell + 1);
 
   return (
     <section>
       <h1>Schulte</h1>
-      <SchulteGrid grid={[...Array(difficulty[difficultyLevel]).keys()]} />
+      <SchulteGrid grid={gridArr} />
     </section>
   );
 }
