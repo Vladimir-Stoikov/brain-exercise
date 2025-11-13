@@ -13,7 +13,7 @@ export default function Schulte() {
     veryHard: 100,
   };
 
-  const difficultyLevel = 'medium';
+  const difficultyLevel = 'easy';
   const gridArr = [...Array(difficulty[difficultyLevel]).keys()].map(cell => cell + 1);
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SchulteCell from './SchulteCell';
 import SectionGridSt from '../styled-components/SectionGridSt.styled';
 
@@ -7,6 +7,7 @@ interface SchulteGridProps {
 }
 
 type ResultArrType = Array<number | '👁️'>;
+type ValueType = number | '👁️';
 
 const shuffle = (arr: number[]) => {
   const basedArr = [...arr];
@@ -26,13 +27,26 @@ const shuffle = (arr: number[]) => {
 };
 
 export default function SchulteGrid({ grid }: SchulteGridProps) {
+  const [counter, setCounter] = useState<number>(1);
   const shuffledGrid = shuffle(grid);
   const size = Math.sqrt(shuffledGrid.length);
+
+  function checkClick(value: ValueType) {
+    if (value === counter) {
+      console.log('good', counter);
+      setCounter(prev => prev + 1);
+    } else {
+      console.log('failed');
+    }
+    if (counter === grid.length) {
+      console.log('end');
+    }
+  }
 
   return (
     <SectionGridSt $size={size}>
       {shuffledGrid.map((cellNum, id) => {
-        return <SchulteCell key={id} value={cellNum} onClick={() => console.log('click')} />;
+        return <SchulteCell key={id} value={cellNum} onClick={value => checkClick(value)} />;
       })}
     </SectionGridSt>
   );
