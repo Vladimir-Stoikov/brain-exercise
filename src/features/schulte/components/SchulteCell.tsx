@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import ButtonCellSt from '../styled-components/ButtonCellSt.styled';
 
 type ValueType = number | '👁️';
@@ -19,7 +19,7 @@ function generateLightColor() {
 }
 
 export default function SchulteCell({ value, onClick }: SchulteCellProp) {
-  const randColor = generateLightColor();
+  const randColor = useMemo(() => generateLightColor(), [value]);
 
   return (
     <ButtonCellSt onClick={() => onClick(value)} $backColor={randColor}>
@@ -27,3 +27,5 @@ export default function SchulteCell({ value, onClick }: SchulteCellProp) {
     </ButtonCellSt>
   );
 }
+
+// useMemo(() => generateLightColor(), [value]);

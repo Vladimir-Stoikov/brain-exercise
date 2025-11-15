@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import SchulteCell from './SchulteCell';
 import SectionGridSt from '../styled-components/SectionGridSt.styled';
 
@@ -28,7 +28,7 @@ const shuffle = (arr: number[]) => {
 
 export default function SchulteGrid({ grid }: SchulteGridProps) {
   const [counter, setCounter] = useState<number>(1);
-  const shuffledGrid = shuffle(grid);
+  const shuffledGrid = useMemo(() => shuffle(grid), [grid]);
   const size = Math.sqrt(shuffledGrid.length);
 
   function checkClick(value: ValueType) {
