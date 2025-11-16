@@ -16,11 +16,9 @@ const shuffle = (arr: number[]) => {
     if (i < arr.length - 1) {
       resultArr.push(basedArr.splice(Math.floor(Math.random() * basedArr.length), 1)[0]);
     } else {
-      const centralIndex = Math.floor(resultArr.length / 2);
-      const centralElement = resultArr[centralIndex];
-      resultArr.splice(centralIndex, 1);
+      const centralIndex = Math.ceil(resultArr.length / 2);
       resultArr.splice(centralIndex, 0, '👁️');
-      resultArr.push(centralElement);
+      resultArr.push(basedArr[0]);
     }
   }
   return resultArr;
@@ -39,7 +37,7 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
       console.log('failed');
     }
     if (counter === grid.length) {
-      console.log('end');
+      console.log('congrads');
     }
   }
 

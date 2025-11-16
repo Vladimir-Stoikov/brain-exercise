@@ -7,7 +7,7 @@ type DifficultyType = {
 
 export default function Schulte() {
   const difficulty: DifficultyType = {
-    easy: 25,
+    easy: 24,
     medium: 49,
     hard: 64,
     veryHard: 100,
