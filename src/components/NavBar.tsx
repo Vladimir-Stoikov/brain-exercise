@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import UlSt from './styled-components/UlSt';
 
 export default function NavBar() {
   const pages: string[] = ['/schulte', '/stroop', '/touch-typing', '/socratic', '/reverse-reading'];
   const [currentPage, setCurrentPage] = useState<number>(0);
-
+  const navigate = useNavigate();
   const location = useLocation();
 
   const isHomePage = location.pathname === '/';
 
   function prevHandler() {
     console.log(currentPage);
-    setCurrentPage(prev => {
-      return prev === 0 ? prev : --prev;
-    });
+    const next = currentPage === 0 ? 0 : currentPage - 1;
+    if (next !== currentPage) {
+      setCurrentPage(next);
+      navigate(pages[next]);
+    }
   }
 
   function nextHandler() {
     console.log(currentPage);
-    setCurrentPage(prev => {
-      return prev > pages.length - 2 ? prev : ++prev;
-    });
+    const next = currentPage >= pages.length - 1 ? currentPage : currentPage + 1;
+    if (next !== currentPage) {
+      setCurrentPage(next);
+      navigate(pages[next]);
+    }
   }
 
   return (
@@ -42,14 +46,14 @@ export default function NavBar() {
             </NavLink>
           </li>
           <li>
-            <NavLink onClick={prevHandler} style={{ cursor: 'pointer' }} to={pages[currentPage]}>
+            <button onClick={prevHandler} style={{ cursor: 'pointer' }}>
               Прошлое
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink onClick={nextHandler} style={{ cursor: 'pointer' }} to={pages[currentPage]}>
+            <button onClick={nextHandler} style={{ cursor: 'pointer' }}>
               Следующее
-            </NavLink>
+            </button>
           </li>
         </UlSt>
       )}
