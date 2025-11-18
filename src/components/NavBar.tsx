@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
-import UlSt from './styled-components/UlSt';
+import UlSt from './styled-components/UlSt.styled';
+import ButtonSt from './styled-components/ButtonSt.styled';
 
 export default function NavBar() {
   const pages: string[] = ['/schulte', '/stroop', '/touch-typing', '/socratic', '/reverse-reading'];
@@ -46,14 +47,14 @@ export default function NavBar() {
             </NavLink>
           </li>
           <li>
-            <button onClick={prevHandler} style={{ cursor: 'pointer' }}>
+            <ButtonSt onClick={prevHandler} style={{ cursor: 'pointer' }}>
               Прошлое
-            </button>
+            </ButtonSt>
           </li>
           <li>
-            <button onClick={nextHandler} style={{ cursor: 'pointer' }}>
+            <ButtonSt onClick={nextHandler} style={{ cursor: 'pointer' }}>
               Следующее
-            </button>
+            </ButtonSt>
           </li>
         </UlSt>
       )}
