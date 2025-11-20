@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { DifficultyContext } from './utility/DifficultyContext';
 
 function App() {
-  const [difficulty, setDifficulty] = useState('veryHard');
+  const [difficulty, setDifficulty] = useState('medium');
 
   return (
     <DifficultyContext.Provider value={{ difficulty, setDifficulty }}>

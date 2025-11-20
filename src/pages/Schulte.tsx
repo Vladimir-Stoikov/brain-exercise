@@ -10,8 +10,8 @@ export default function Schulte() {
   const difficultyValues: DifficultyType = {
     easy: 24,
     medium: 48,
-    hard: 63,
-    veryHard: 99,
+    hard: 80,
+    veryHard: 120,
   };
 
   const { difficulty } = useContext(DifficultyContext);

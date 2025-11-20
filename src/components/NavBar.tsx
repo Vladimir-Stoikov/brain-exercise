@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import UlSt from './styled-components/UlSt.styled';
 import ButtonSt from './styled-components/ButtonSt.styled';
+import { DifficultyContext } from '../utility/DifficultyContext';
 
 export default function NavBar() {
   const pages: string[] = ['/schulte', '/stroop', '/touch-typing', '/socratic', '/reverse-reading'];
@@ -10,6 +11,7 @@ export default function NavBar() {
   const location = useLocation();
 
   const isHomePage = location.pathname === '/';
+  const { difficulty, setDifficulty } = useContext(DifficultyContext);
 
   function prevHandler() {
     console.log(currentPage);
@@ -58,6 +60,12 @@ export default function NavBar() {
           </li>
         </UlSt>
       )}
+      <select value={difficulty} onChange={e => setDifficulty(e.target.value)}>
+        <option value='easy'>Easy</option>
+        <option value='medium'>Medium</option>
+        <option value='hard'>Hard</option>
+        <option value='veryHard'>Very Hard</option>
+      </select>
     </>
   );
 }
