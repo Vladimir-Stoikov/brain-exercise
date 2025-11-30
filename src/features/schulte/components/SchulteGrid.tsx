@@ -44,7 +44,7 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
   return (
     <SectionGridSt $size={size}>
       {shuffledGrid.map((cellNum, id) => {
-        return <SchulteCell key={id} value={cellNum} onClick={value => checkClick(value)} />;
+        return <SchulteCell key={id} value={cellNum} onClick={value => checkClick(value)} currentCounter={counter} />;
       })}
     </SectionGridSt>
   );

@@ -6,6 +6,7 @@ type ValueType = number | '👁️';
 interface SchulteCellProp {
   value: ValueType;
   onClick: (value: ValueType) => void;
+  currentCounter: number;
 }
 
 function generateLightColor() {
@@ -18,11 +19,14 @@ function generateLightColor() {
   return `rgb(${r} ${g} ${b})`;
 }
 
-export default function SchulteCell({ value, onClick }: SchulteCellProp) {
+export default function SchulteCell({ value, onClick, currentCounter }: SchulteCellProp) {
   const randColor = useMemo(() => generateLightColor(), [value]);
 
+  const isCompleted = typeof value === 'number' && value < currentCounter;
+  const cellColor = isCompleted ? 'white' : randColor;
+
   return (
-    <ButtonCellSt onClick={() => onClick(value)} $backColor={randColor}>
+    <ButtonCellSt onClick={() => onClick(value)} $backColor={cellColor}>
       {value}
     </ButtonCellSt>
   );
