@@ -17,7 +17,6 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: '*', element: <NotFoundPage /> },
       { path: 'schulte', element: <Schulte /> },
       { path: 'stroop', element: <Stroop /> },
       { path: 'touch-typing', element: <TouchTyping /> },
@@ -25,6 +24,7 @@ const router = createBrowserRouter([
       { path: 'reverse-reading', element: <ReverseReading /> },
     ],
   },
+  { path: '*', element: <NotFoundPage /> },
 ]);
 
 createRoot(document.getElementById('root')!).render(
