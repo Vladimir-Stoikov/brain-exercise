@@ -6,27 +6,23 @@ import { DifficultyContext } from '../utility/DifficultyContext';
 
 export default function NavBar() {
   const pages: string[] = ['/schulte', '/stroop', '/touch-typing', '/socratic', '/reverse-reading'];
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const navigate = useNavigate();
   const location = useLocation();
+  const index = pages.indexOf(location.pathname);
+  const navigate = useNavigate();
 
   const isHomePage = location.pathname === '/';
   const { difficulty, setDifficulty } = useContext(DifficultyContext);
 
   function prevHandler() {
-    console.log(currentPage);
-    const next = currentPage === 0 ? 0 : currentPage - 1;
-    if (next !== currentPage) {
-      setCurrentPage(next);
+    const next = index === 0 ? 0 : index - 1;
+    if (next !== index) {
       navigate(pages[next]);
     }
   }
 
   function nextHandler() {
-    console.log(currentPage);
-    const next = currentPage >= pages.length - 1 ? currentPage : currentPage + 1;
-    if (next !== currentPage) {
-      setCurrentPage(next);
+    const next = index >= pages.length - 1 ? index : index + 1;
+    if (next !== index) {
       navigate(pages[next]);
     }
   }
