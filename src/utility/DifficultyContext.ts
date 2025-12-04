@@ -1,6 +1,13 @@
 import { createContext } from 'react';
 
-export const DifficultyContext = createContext({
-  difficulty: '',
+export type DifficultyValues = 'easy' | 'medium' | 'hard' | 'veryHard';
+export type Difficulty = {
+  difficulty: DifficultyValues,
+  setDifficulty: (d: Difficulty) => void;
+};
+
+
+export const DifficultyContext = createContext<Difficulty>({
+  difficulty: 'medium',
   setDifficulty: () => {}
 });
