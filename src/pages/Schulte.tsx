@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import SchulteGrid from '../features/schulte/components/SchulteGrid';
 import { DifficultyContext } from '../utility/DifficultyContext';
 
@@ -17,7 +17,9 @@ export default function Schulte() {
   const { difficulty } = useContext(DifficultyContext);
   console.log(difficulty);
   console.log(difficultyValues[difficulty]);
-  const gridArr = [...Array(difficultyValues[difficulty]).keys()].map(cell => cell + 1);
+  const gridArr = useMemo(() => {
+    return [...Array(difficultyValues[difficulty]).keys()].map(cell => cell + 1);
+  }, [difficulty]);
 
   return (
     <section>
