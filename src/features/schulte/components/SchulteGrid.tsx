@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import SchulteCell from './SchulteCell';
 import SectionGridSt from '../styled-components/SectionGridSt.styled';
+import { generateLightColor } from '../../../utility/color';
 
 interface SchulteGridProps {
   grid: number[];
@@ -41,10 +42,18 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
     }
   }
 
+  const colorMap = useMemo(() => {
+    const map = new Map();
+    shuffledGrid.forEach(value => map.set(value, generateLightColor()));
+    return map;
+  }, [shuffledGrid]);
+
   return (
     <SectionGridSt $size={size}>
       {shuffledGrid.map((cellNum, id) => {
-        return <SchulteCell key={id} value={cellNum} onClick={value => checkClick(value)} currentCounter={counter} />;
+        const isCompleted = typeof cellNum === 'number' && cellNum < counter;
+
+        return <SchulteCell key={id} value={cellNum} onClick={value => checkClick(value)} color={isCompleted ? 'white' : colorMap.get(cellNum)} />;
       })}
     </SectionGridSt>
   );
