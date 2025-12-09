@@ -5,8 +5,9 @@ const SectionGridSt = styled.section<{ $size?: number }>`
   display: grid;
   grid-template-columns: repeat(${props => props.$size || 7}, 1fr);
   grid-template-rows: repeat(${props => props.$size || 7}, 1fr);
-  width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 600px;
+  margin: 0 auto;
 `;
 
 export default SectionGridSt
