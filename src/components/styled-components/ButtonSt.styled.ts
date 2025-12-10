@@ -16,6 +16,19 @@ border: solid 0.3rem white;
 &:active { 
   transform: scale(1.05);
 }
+
+&:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+  }
+
+&:disabled:hover,
+&:disabled:active {
+  background-color: gray;
+  transform: none;
+  }
 `
 
 export default ButtonSt

@@ -45,12 +45,12 @@ export default function NavBar() {
             </NavLink>
           </li>
           <li>
-            <ButtonSt onClick={prevHandler} style={{ cursor: 'pointer' }}>
+            <ButtonSt onClick={prevHandler} style={{ cursor: 'pointer' }} disabled={index === 0}>
               Прошлое
             </ButtonSt>
           </li>
           <li>
-            <ButtonSt onClick={nextHandler} style={{ cursor: 'pointer' }}>
+            <ButtonSt onClick={nextHandler} style={{ cursor: 'pointer' }} disabled={index === pages.length - 1}>
               Следующее
             </ButtonSt>
           </li>
