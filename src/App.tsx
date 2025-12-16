@@ -4,20 +4,23 @@ import NavBar from './components/NavBar';
 import MainSt from './components/styled-components/MainSt.styled';
 import { useState } from 'react';
 import { DifficultyContext } from './utility/DifficultyContext';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 function App() {
   const [difficulty, setDifficulty] = useState('medium');
 
   return (
-    <DifficultyContext.Provider value={{ difficulty, setDifficulty }}>
-      <MainSt>
-        <h1>brain-exercise</h1>
-        <NavBar />
-        <section>
-          <Outlet />
-        </section>
-      </MainSt>
-    </DifficultyContext.Provider>
+    <ErrorBoundary>
+      <DifficultyContext.Provider value={{ difficulty, setDifficulty }}>
+        <MainSt>
+          <h1>brain-exercise</h1>
+          <NavBar />
+          <section>
+            <Outlet />
+          </section>
+        </MainSt>
+      </DifficultyContext.Provider>
+    </ErrorBoundary>
   );
 }
 
