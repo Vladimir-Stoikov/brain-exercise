@@ -1,4 +1,5 @@
 import { Component, type ReactNode } from 'react';
+import ErrorFallback from './ErrorFallback';
 
 interface Props {
   children: ReactNode;
@@ -23,7 +24,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return <h2>Что-то пошло не так 😕</h2>;
+      return <ErrorFallback />;
     }
 
     return this.props.children;
