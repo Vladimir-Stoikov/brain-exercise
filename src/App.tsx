@@ -4,13 +4,13 @@ import NavBar from './components/NavBar';
 import MainSt from './components/styled-components/MainSt.styled';
 import { useState } from 'react';
 import { DifficultyContext } from './utility/DifficultyContext';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { ErrorBoundaryWithReset } from './components/ErrorBoundaryWithReset';
 
 function App() {
   const [difficulty, setDifficulty] = useState('medium');
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundaryWithReset>
       <DifficultyContext.Provider value={{ difficulty, setDifficulty }}>
         <MainSt>
           <h1>brain-exercise</h1>
@@ -20,7 +20,7 @@ function App() {
           </section>
         </MainSt>
       </DifficultyContext.Provider>
-    </ErrorBoundary>
+    </ErrorBoundaryWithReset>
   );
 }
 
