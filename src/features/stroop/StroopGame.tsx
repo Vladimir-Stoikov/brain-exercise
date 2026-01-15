@@ -4,26 +4,43 @@ import StroopWord from './components/StroopWord';
 import StroopControls from './components/StroopControls';
 
 export default function StroopGame() {
-  const [word] = useState(getRandomColor);
-  const [textColor] = useState(getRandomColor);
+  const [round, setRound] = useState(createRound);
   const [result, setResult] = useState<'correct' | 'wrong' | null>(null);
 
+  function createRound() {
+    return {
+      word: getRandomColor(),
+      textColor: getRandomColor(),
+    };
+  }
+
   function handleAnswer(color: string) {
-    if (color === textColor.value) {
+    if (color === round.textColor.value) {
       setResult('correct');
     } else {
       setResult('wrong');
     }
   }
 
+  function nextRound() {
+    setRound(createRound());
+    setResult(null);
+  }
+
   return (
     <div>
-      <StroopWord text={word.name} color={textColor.value} />
+      <StroopWord text={round.word.name} color={round.textColor.value} />
 
       <StroopControls colors={COLORS} onSelect={handleAnswer} />
 
-      {result === 'correct' && <p style={{ color: 'green' }}>Correct</p>}
-      {result === 'wrong' && <p style={{ color: 'red' }}>Error</p>}
+      {result === 'correct' && (
+        <>
+          <p style={{ color: 'green' }}>Верно</p>
+          <button onClick={nextRound}>Next</button>
+        </>
+      )}
+
+      {result === 'wrong' && <p style={{ color: 'red' }}>Ошибка</p>}
     </div>
   );
 }
