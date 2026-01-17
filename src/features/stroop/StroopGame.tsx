@@ -31,16 +31,17 @@ export default function StroopGame() {
     <div>
       <StroopWord text={round.word.name} color={round.textColor.value} />
 
-      <StroopControls colors={COLORS} onSelect={handleAnswer} />
+      <StroopControls colors={COLORS} onSelect={handleAnswer} disabled={result !== null} />
 
-      {result === 'correct' && (
+      {result && (
         <>
-          <p style={{ color: 'green' }}>Верно</p>
+          {result === 'correct' && <p style={{ color: 'green' }}>Верно</p>}
+
+          {result === 'wrong' && <p style={{ color: 'red' }}>Ошибка</p>}
+
           <button onClick={nextRound}>Next</button>
         </>
       )}
-
-      {result === 'wrong' && <p style={{ color: 'red' }}>Ошибка</p>}
     </div>
   );
 }

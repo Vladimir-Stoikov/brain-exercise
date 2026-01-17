@@ -1,14 +1,14 @@
 interface Props {
-  colors: { name: string; value: string }[];
+  colors: Color[];
   onSelect: (color: string) => void;
+  disabled: boolean;
 }
-
-export default function StroopControls({ colors, onSelect }: Props) {
+export default function StroopControls({ colors, onSelect, disabled }: Props) {
   return (
     <div>
-      {colors.map(c => (
-        <button key={c.value} onClick={() => onSelect(c.value)}>
-          {c.name}
+      {colors.map(color => (
+        <button disabled={disabled} onClick={() => onSelect(color.value)}>
+          {color.name}
         </button>
       ))}
     </div>
