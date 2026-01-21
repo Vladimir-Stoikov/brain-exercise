@@ -11,6 +11,9 @@ export default function StroopGame() {
   const [wrongCount, setWrongCount] = useState(0);
   const [streak, setStreak] = useState(0);
 
+  const [startTime, setStartTime] = useState<number>(() => Date.now());
+  const [reactionTime, setReactionTime] = useState<number | null>(null);
+
   function createRound() {
     return {
       word: getRandomColor(),
@@ -20,6 +23,9 @@ export default function StroopGame() {
 
   function handleAnswer(color: string) {
     if (result) return;
+
+    const time = Date.now() - startTime;
+    setReactionTime(time);
 
     if (color === round.textColor.value) {
       setResult('correct');
@@ -35,6 +41,8 @@ export default function StroopGame() {
   function nextRound() {
     setRound(createRound());
     setResult(null);
+    setReactionTime(null);
+    setStartTime(Date.now());
   }
 
   return (
@@ -55,6 +63,7 @@ export default function StroopGame() {
       <div style={{ marginBottom: '1rem' }}>
         <span>✔ {correctCount}</span> <span>✖ {wrongCount}</span> <span>🔥 серия: {streak}</span>
       </div>
+      {reactionTime !== null && <p>Время реакции: {reactionTime} ms</p>}
     </div>
   );
 }
