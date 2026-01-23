@@ -14,6 +14,11 @@ export default function StroopGame() {
   const [startTime, setStartTime] = useState<number>(() => Date.now());
   const [reactionTime, setReactionTime] = useState<number | null>(null);
 
+  const [totalReactionTime, setTotalReactionTime] = useState(0);
+  const [answersCount, setAnswersCount] = useState(0);
+
+  const avgReactionTime = answersCount > 0 ? Math.round(totalReactionTime / answersCount) : null;
+
   function createRound() {
     return {
       word: getRandomColor(),
@@ -25,7 +30,10 @@ export default function StroopGame() {
     if (result) return;
 
     const time = Date.now() - startTime;
+
     setReactionTime(time);
+    setTotalReactionTime(prev => prev + time);
+    setAnswersCount(prev => prev + 1);
 
     if (color === round.textColor.value) {
       setResult('correct');
@@ -48,9 +56,7 @@ export default function StroopGame() {
   return (
     <div>
       <StroopWord text={round.word.name} color={round.textColor.value} />
-
       <StroopControls colors={COLORS} onSelect={handleAnswer} disabled={result !== null} />
-
       {result && (
         <>
           {result === 'correct' && <p style={{ color: 'green' }}>Верно</p>}
@@ -61,9 +67,12 @@ export default function StroopGame() {
         </>
       )}
       <div style={{ marginBottom: '1rem' }}>
-        <span>✔ {correctCount}</span> <span>✖ {wrongCount}</span> <span>🔥 серия: {streak}</span>
+        <span>✔: {correctCount}</span>
+        <span>✖: {wrongCount}</span>
+        <span>streak: {streak}</span>
+        <span>avg time: {avgReactionTime} ms</span>
       </div>
-      {reactionTime !== null && <p>Время реакции: {reactionTime} ms</p>}
+      ;{reactionTime !== null && <p>Время реакции: {reactionTime} ms</p>}
     </div>
   );
 }
