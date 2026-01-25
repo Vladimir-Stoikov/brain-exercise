@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { COLORS, getRandomColor } from './utils/stroopData';
 import StroopWord from './components/StroopWord';
 import StroopControls from './components/StroopControls';
+import { StroopButton } from './components/styled-components/StroopButton.styled';
+import { FeedbackText } from './components/styled-components/Feedback.styled';
+import { StatsRow } from './components/styled-components/Stats.styled';
 
 export default function StroopGame() {
   const [round, setRound] = useState(createRound);
@@ -59,20 +62,20 @@ export default function StroopGame() {
       <StroopControls colors={COLORS} onSelect={handleAnswer} disabled={result !== null} />
       {result && (
         <>
-          {result === 'correct' && <p style={{ color: 'green' }}>Верно</p>}
+          {result === 'correct' && <FeedbackText $type='correct'>Correct</FeedbackText>}
 
-          {result === 'wrong' && <p style={{ color: 'red' }}>Ошибка</p>}
+          {result === 'wrong' && <FeedbackText $type='wrong'>Wrong</FeedbackText>}
 
-          <button onClick={nextRound}>Next</button>
+          <StroopButton onClick={nextRound}>Next</StroopButton>
         </>
       )}
-      <div style={{ marginBottom: '1rem' }}>
+      <StatsRow style={{ marginBottom: '1rem' }}>
         <span>✔: {correctCount}</span>
         <span>✖: {wrongCount}</span>
         <span>streak: {streak}</span>
         <span>avg time: {avgReactionTime} ms</span>
-      </div>
-      ;{reactionTime !== null && <p>Время реакции: {reactionTime} ms</p>}
+        {reactionTime !== null && <p>Время реакции: {reactionTime} ms</p>}
+      </StatsRow>
     </div>
   );
 }
