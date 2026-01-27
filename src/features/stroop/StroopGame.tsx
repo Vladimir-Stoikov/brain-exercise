@@ -60,15 +60,13 @@ export default function StroopGame() {
     <div>
       <StroopWord text={round.word.name} color={round.textColor.value} />
       <StroopControls colors={COLORS} onSelect={handleAnswer} disabled={result !== null} />
-      {result && (
-        <>
-          {result === 'correct' && <FeedbackText $type='correct'>Correct</FeedbackText>}
-
-          {result === 'wrong' && <FeedbackText $type='wrong'>Wrong</FeedbackText>}
-
-          <StroopButton onClick={nextRound}>Next</StroopButton>
-        </>
-      )}
+      <FeedbackText $type={result === 'wrong' ? 'wrong' : 'correct'}>
+        {result === 'correct' && 'Correct'}
+        {result === 'wrong' && 'Wrong'}
+      </FeedbackText>
+      <StroopButton onClick={nextRound} disabled={result === null}>
+        Next
+      </StroopButton>
       <StatsRow style={{ marginBottom: '1rem' }}>
         <span>✔: {correctCount}</span>
         <span>✖: {wrongCount}</span>
