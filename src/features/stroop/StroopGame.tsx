@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { COLORS, getRandomColor } from './utils/stroopData';
 import StroopWord from './components/StroopWord';
 import StroopControls from './components/StroopControls';
 import { StroopButton } from './components/styled-components/StroopButton.styled';
 import { FeedbackText } from './components/styled-components/Feedback.styled';
 import { StatsRow } from './components/styled-components/Stats.styled';
+import { TimerBar } from './components/styled-components/TimerBar.styled';
 
 export default function StroopGame() {
   const [round, setRound] = useState(createRound);
@@ -20,7 +21,23 @@ export default function StroopGame() {
   const [totalReactionTime, setTotalReactionTime] = useState(0);
   const [answersCount, setAnswersCount] = useState(0);
 
+  const ROUND_TIME_MS = 3000;
+  const [timeExpired, setTimeExpired] = useState(false);
+
   const avgReactionTime = answersCount > 0 ? Math.round(totalReactionTime / answersCount) : null;
+
+  useEffect(() => {
+    if (result) return;
+
+    const timeout = setTimeout(() => {
+      setTimeExpired(true);
+      setResult('wrong');
+      setWrongCount(prev => prev + 1);
+      setStreak(0);
+    }, ROUND_TIME_MS);
+
+    return () => clearTimeout(timeout);
+  }, [round]);
 
   function createRound() {
     return {
@@ -30,7 +47,7 @@ export default function StroopGame() {
   }
 
   function handleAnswer(color: string) {
-    if (result) return;
+    if (result || timeExpired) return;
 
     const time = Date.now() - startTime;
 
@@ -53,12 +70,14 @@ export default function StroopGame() {
     setRound(createRound());
     setResult(null);
     setReactionTime(null);
+    setTimeExpired(false);
     setStartTime(Date.now());
   }
 
   return (
     <div>
       <StroopWord text={round.word.name} color={round.textColor.value} />
+      <TimerBar $active={!result} />
       <StroopControls colors={COLORS} onSelect={handleAnswer} disabled={result !== null} />
       <FeedbackText $type={result === 'wrong' ? 'wrong' : 'correct'}>
         {result === 'correct' && 'Correct'}
