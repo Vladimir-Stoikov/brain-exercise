@@ -1,22 +1,20 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-const shrink = keyframes`
-  from {
-    transform: scaleX(1);
-  }
-  to {
-    transform: scaleX(0);
-  }
-`;
-
-export const TimerBar = styled.div<{ $active: boolean }>`
-  height: 6px;
+export const TimerBar = styled.div<{ $duration: number }>`
   width: 100%;
-  background: var(--secondary-light);
-  transform-origin: left;
-  animation: ${({ $active }) => ($active ? shrink : 'none')}
-    3000ms linear forwards;
+  height: 6px;
+  background-color: var(--error-indicator-color);
+  margin-bottom: 1rem;
 
-  border-radius: 4px;
-  margin-bottom: 12px;
+  animation: shrink linear forwards;
+  animation-duration: ${({ $duration }) => $duration}ms;
+
+  @keyframes shrink {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0%;
+    }
+  }
 `;

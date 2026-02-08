@@ -7,27 +7,36 @@ import { FeedbackText } from './components/styled-components/Feedback.styled';
 import { StatsRow } from './components/styled-components/Stats.styled';
 import { TimerBar } from './components/styled-components/TimerBar.styled';
 
+const ROUND_TIME_MS = 3000;
+
+function createRound() {
+  return {
+    word: getRandomColor(),
+    textColor: getRandomColor(),
+  };
+}
+
 export default function StroopGame() {
-  const [round, setRound] = useState(createRound);
+  const [round, setRound] = useState<ReturnType<typeof createRound> | null>(null);
+  const [isStarted, setIsStarted] = useState(false);
+
   const [result, setResult] = useState<'correct' | 'wrong' | null>(null);
+  const [timeExpired, setTimeExpired] = useState(false);
+
+  const [startTime, setStartTime] = useState<number>(0);
+  const [reactionTime, setReactionTime] = useState<number | null>(null);
 
   const [correctCount, setCorrectCount] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
   const [streak, setStreak] = useState(0);
 
-  const [startTime, setStartTime] = useState<number>(() => Date.now());
-  const [reactionTime, setReactionTime] = useState<number | null>(null);
-
   const [totalReactionTime, setTotalReactionTime] = useState(0);
   const [answersCount, setAnswersCount] = useState(0);
-
-  const ROUND_TIME_MS = 3000;
-  const [timeExpired, setTimeExpired] = useState(false);
 
   const avgReactionTime = answersCount > 0 ? Math.round(totalReactionTime / answersCount) : null;
 
   useEffect(() => {
-    if (result) return;
+    if (!isStarted || !round || result) return;
 
     const timeout = setTimeout(() => {
       setTimeExpired(true);
@@ -37,17 +46,19 @@ export default function StroopGame() {
     }, ROUND_TIME_MS);
 
     return () => clearTimeout(timeout);
-  }, [round]);
+  }, [round, isStarted, result]);
 
-  function createRound() {
-    return {
-      word: getRandomColor(),
-      textColor: getRandomColor(),
-    };
+  function startGame() {
+    setRound(createRound());
+    setIsStarted(true);
+    setResult(null);
+    setTimeExpired(false);
+    setReactionTime(null);
+    setStartTime(Date.now());
   }
 
   function handleAnswer(color: string) {
-    if (result || timeExpired) return;
+    if (result || timeExpired || !round) return;
 
     const time = Date.now() - startTime;
 
@@ -69,30 +80,39 @@ export default function StroopGame() {
   function nextRound() {
     setRound(createRound());
     setResult(null);
-    setReactionTime(null);
     setTimeExpired(false);
+    setReactionTime(null);
     setStartTime(Date.now());
   }
 
   return (
     <div>
-      <StroopWord text={round.word.name} color={round.textColor.value} />
-      <TimerBar $active={!result} />
-      <StroopControls colors={COLORS} onSelect={handleAnswer} disabled={result !== null} />
-      <FeedbackText $type={result === 'wrong' ? 'wrong' : 'correct'}>
-        {result === 'correct' && 'Correct'}
-        {result === 'wrong' && 'Wrong'}
-      </FeedbackText>
-      <StroopButton onClick={nextRound} disabled={result === null}>
+      {!isStarted && <StroopButton onClick={startGame}>Start</StroopButton>}
+
+      {isStarted && round && (
+        <>
+          {!result && <TimerBar key={round.word.value} $duration={ROUND_TIME_MS} />}
+
+          <StroopWord text={round.word.name} color={round.textColor.value} />
+
+          <StroopControls colors={COLORS} onSelect={handleAnswer} disabled={result !== null} />
+        </>
+      )}
+
+      {result && <FeedbackText $type={result}>{result === 'correct' ? 'Correct' : 'Wrong'}</FeedbackText>}
+
+      <StroopButton onClick={nextRound} disabled={!result}>
         Next
       </StroopButton>
-      <StatsRow style={{ marginBottom: '1rem' }}>
+
+      <StatsRow>
         <span>✔: {correctCount}</span>
         <span>✖: {wrongCount}</span>
         <span>streak: {streak}</span>
-        <span>avg time: {avgReactionTime} ms</span>
-        {reactionTime !== null && <p>Время реакции: {reactionTime} ms</p>}
+        <span>avg time: {avgReactionTime ?? '-'} ms</span>
       </StatsRow>
+
+      {reactionTime !== null && <p>{reactionTime} ms</p>}
     </div>
   );
 }
