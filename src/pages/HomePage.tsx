@@ -7,7 +7,7 @@ export default function HomePage() {
     <HomeWrapper>
       <HomeTitle>Brain Exercise</HomeTitle>
 
-      <HomeText>Набор коротких упражнений для тренировки внимания, реакции и когнитивной гибкости.</HomeText>
+      <HomeText>A set of short exercises to train attention, reaction, and cognitive flexibility.</HomeText>
 
       <HomeText>🧠 Schulte · 🎨 Stroop · ⌨ Touch Typing · 📖 Reading</HomeText>
     </HomeWrapper>
