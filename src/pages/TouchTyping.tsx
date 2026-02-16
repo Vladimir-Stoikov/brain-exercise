@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function TouchTypingPage() {
   const text = 'The quick brown fox jumps over the lazy dog';
@@ -7,14 +7,32 @@ export default function TouchTypingPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
 
+  const [time, setTimer] = useState(0);
+  const [isStarted, setIsStarted] = useState(false);
+
+  useEffect(() => {
+    if (!isStarted || isFinished) return;
+
+    const interval = setInterval(() => {
+      setTimer(prev => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isStarted, isFinished]);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isFinished) return;
+
+    if (!isStarted) {
+      setIsStarted(true);
+    }
 
     const expectedChar = text[currentIndex];
 
     if (e.key === expectedChar) {
       setCurrentIndex(prev => {
         const next = prev + 1;
+
         if (next === text.length) {
           setIsFinished(true);
         }
@@ -30,9 +48,7 @@ export default function TouchTypingPage() {
     <div>
       <h2>Touch Typing</h2>
 
-      {/* <p>{text}</p> */}
-
-      {/* <input value={input} onChange={e => setInput(e.target.value)} /> */}
+      <p>Time: {time}</p>
 
       <p>
         {text.split('').map((char, index) => {
@@ -47,8 +63,6 @@ export default function TouchTypingPage() {
       </p>
 
       <input onKeyDown={handleKeyDown} />
-
-      {/* <p>Current input: {input}</p> */}
 
       {isFinished && <p>Complete</p>}
     </div>
