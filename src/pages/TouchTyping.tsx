@@ -1,9 +1,16 @@
+import { useEffect, useRef } from 'react';
 import { useTouchTyping } from '../features/touch-typing/useTouchTyping';
 
 export default function TouchTypingPage() {
   const text = 'The quick brown fox jumps over the lazy dog';
 
   const { currentIndex, isFinished, time, handleKeyDown } = useTouchTyping(text);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   return (
     <div>
@@ -23,7 +30,7 @@ export default function TouchTypingPage() {
         })}
       </p>
 
-      <input onKeyDown={handleKeyDown} />
+      <input ref={inputRef} onKeyDown={handleKeyDown} />
 
       {isFinished && <p>Complete</p>}
     </div>
