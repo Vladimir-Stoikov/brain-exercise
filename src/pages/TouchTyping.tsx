@@ -20,13 +20,17 @@ export default function TouchTypingPage() {
 
       <p>
         {text.split('').map((char, index) => {
-          if (index < currentIndex) {
-            return <span key={index}>{char}</span>;
-          }
-          if (index === currentIndex) {
-            return <span key={index}>[{char}]</span>;
-          }
-          return <span key={index}>{char}</span>;
+          let className = '';
+
+          if (index < currentIndex) className = 'typed';
+          else if (index === currentIndex) className = 'current';
+          else className = 'upcoming';
+
+          return (
+            <span key={index} className={className}>
+              {char}
+            </span>
+          );
         })}
       </p>
 

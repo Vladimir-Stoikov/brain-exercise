@@ -32,3 +32,16 @@ body {
   font-style: normal;
   color: var(--text-color-light);
 }
+
+.typed {
+  color: #3FBF8A; /* success */
+}
+
+.current {
+  color: #F4F4F4;
+  border-bottom: 2px solid #F4F4F4;
+}
+
+.upcoming {
+  opacity: 0.4;
+}
