@@ -34,12 +34,15 @@ body {
 }
 
 .typed {
-  color: #3FBF8A; /* success */
+  color: #3FBF8A;
+}
+
+.error {
+  color: #ff5c5c;
 }
 
 .current {
-  color: #F4F4F4;
-  border-bottom: 2px solid #F4F4F4;
+  border-bottom: 2px solid #ffffff;
 }
 
 .upcoming {
