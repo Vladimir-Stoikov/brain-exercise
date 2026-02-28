@@ -4,7 +4,7 @@ import { useTouchTyping } from '../features/touch-typing/useTouchTyping';
 export default function TouchTypingPage() {
   const text = 'The quick brown fox jumps over the lazy dog';
 
-  const { currentIndex, isFinished, time, errors, handleKeyDown } = useTouchTyping(text);
+  const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, handleKeyDown } = useTouchTyping(text);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,6 +39,11 @@ export default function TouchTypingPage() {
           );
         })}
       </p>
+      <div>
+        <p>Accuracy: {accuracy}%</p>
+        <p>Correct: {correctCount}</p>
+        <p>Wrong: {wrongCount}</p>
+      </div>
 
       <input ref={inputRef} onKeyDown={handleKeyDown} />
 
