@@ -22,6 +22,8 @@ export function useTouchTyping(text: string) {
 const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
   if (isFinished) return;
 
+  if (e.key.length !== 1) return;
+
   if (!isStarted) {
     setIsStarted(true);
   }
