@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTouchTyping } from '../features/touch-typing/useTouchTyping';
 
 export default function TouchTypingPage() {
@@ -6,11 +6,18 @@ export default function TouchTypingPage() {
 
   const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, handleKeyDown } = useTouchTyping(text);
 
+  const [isStarted, setIsStarted] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  function startTyping() {
+    setIsStarted(true);
+    inputRef.current?.focus();
+  }
 
   return (
     <div>
@@ -45,7 +52,9 @@ export default function TouchTypingPage() {
         <p>Wrong: {wrongCount}</p>
       </div>
 
-      <input ref={inputRef} onKeyDown={handleKeyDown} />
+      {!isStarted && <button onClick={startTyping}>Start</button>}
+
+      {isStarted && <input ref={inputRef} onKeyDown={handleKeyDown} />}
 
       {isFinished && <p>Complete</p>}
     </div>
