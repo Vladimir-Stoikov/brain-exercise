@@ -11,8 +11,10 @@ export default function TouchTypingPage() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (isStarted) {
+      inputRef.current?.focus();
+    }
+  }, [isStarted]);
 
   function startTyping() {
     setIsStarted(true);
@@ -54,7 +56,17 @@ export default function TouchTypingPage() {
 
       {!isStarted && <button onClick={startTyping}>Start</button>}
 
-      {isStarted && <input ref={inputRef} onKeyDown={handleKeyDown} />}
+      {isStarted && (
+        <input
+          ref={inputRef}
+          onKeyDown={handleKeyDown}
+          style={{
+            position: 'absolute',
+            opacity: 0,
+            pointerEvents: 'none',
+          }}
+        />
+      )}
 
       {isFinished && <p>Complete</p>}
     </div>
