@@ -22,53 +22,61 @@ export default function TouchTypingPage() {
   }
 
   return (
-    <div>
+    <>
       <h2>Touch Typing</h2>
-
-      <p>Time: {time}</p>
-
-      <p>
-        {text.split('').map((char, index) => {
-          let className = '';
-
-          if (errors.has(index)) {
-            className = 'error';
-          } else if (index < currentIndex) {
-            className = 'typed';
-          } else if (index === currentIndex) {
-            className = 'current';
-          } else {
-            className = 'upcoming';
-          }
-
-          return (
-            <span key={index} className={className}>
-              {char}
-            </span>
-          );
-        })}
-      </p>
-      <div>
-        <p>Accuracy: {accuracy}%</p>
-        <p>Correct: {correctCount}</p>
-        <p>Wrong: {wrongCount}</p>
-      </div>
-
-      {!isStarted && <button onClick={startTyping}>Start</button>}
-
-      {isStarted && (
-        <input
-          ref={inputRef}
-          onKeyDown={handleKeyDown}
-          style={{
-            position: 'absolute',
-            opacity: 0,
-            pointerEvents: 'none',
-          }}
-        />
+      {!isStarted && (
+        <div>
+          <p>Press Start and begin typing</p>
+        </div>
       )}
+      {isStarted && (
+        <div>
+          <p>Time: {time}</p>
 
-      {isFinished && <p>Complete</p>}
-    </div>
+          <p>
+            {isStarted &&
+              text.split('').map((char, index) => {
+                let className = '';
+
+                if (errors.has(index)) {
+                  className = 'error';
+                } else if (index < currentIndex) {
+                  className = 'typed';
+                } else if (index === currentIndex) {
+                  className = 'current';
+                } else {
+                  className = 'upcoming';
+                }
+
+                return (
+                  <span key={index} className={className}>
+                    {char}
+                  </span>
+                );
+              })}
+          </p>
+          <div>
+            <p>Accuracy: {accuracy}%</p>
+            <p>Correct: {correctCount}</p>
+            <p>Wrong: {wrongCount}</p>
+          </div>
+
+          {isStarted && (
+            <input
+              ref={inputRef}
+              onKeyDown={handleKeyDown}
+              style={{
+                position: 'absolute',
+                opacity: 0,
+                pointerEvents: 'none',
+              }}
+            />
+          )}
+
+          {isFinished && <p>Complete</p>}
+        </div>
+      )}
+      {!isStarted && <button onClick={startTyping}>Start</button>}
+    </>
   );
 }
