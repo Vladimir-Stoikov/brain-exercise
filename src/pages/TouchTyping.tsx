@@ -4,21 +4,67 @@ import { useTouchTyping } from '../features/touch-typing/useTouchTyping';
 export default function TouchTypingPage() {
   const text = 'The quick brown fox jumps over the lazy dog';
 
-  const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, handleKeyDown } = useTouchTyping(text);
+  const [resetKey, setResetKey] = useState(0);
 
   const [isStarted, setIsStarted] = useState(false);
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (isStarted) {
-      inputRef.current?.focus();
-    }
-  }, [isStarted]);
-
   function startTyping() {
     setIsStarted(true);
-    inputRef.current?.focus();
+  }
+
+  function TypingSession({ text }: { text: string }) {
+    const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, handleKeyDown } = useTouchTyping(text);
+
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+      inputRef.current?.focus();
+    }, []);
+
+    return (
+      <div>
+        <p>Time: {time}</p>
+
+        <p>
+          {text.split('').map((char, index) => {
+            let className = '';
+
+            if (errors.has(index)) {
+              className = 'error';
+            } else if (index < currentIndex) {
+              className = 'typed';
+            } else if (index === currentIndex) {
+              className = 'current';
+            } else {
+              className = 'upcoming';
+            }
+
+            return (
+              <span key={index} className={className}>
+                {char}
+              </span>
+            );
+          })}
+        </p>
+        <div>
+          <p>Accuracy: {accuracy}%</p>
+          <p>Correct: {correctCount}</p>
+          <p>Wrong: {wrongCount}</p>
+        </div>
+
+        <input
+          ref={inputRef}
+          onKeyDown={handleKeyDown}
+          style={{
+            position: 'absolute',
+            opacity: 0,
+            pointerEvents: 'none',
+          }}
+        />
+
+        {isFinished && <p>Complete</p>}
+      </div>
+    );
   }
 
   return (
@@ -29,54 +75,19 @@ export default function TouchTypingPage() {
           <p>Press Start and begin typing</p>
         </div>
       )}
-      {isStarted && (
-        <div>
-          <p>Time: {time}</p>
 
-          <p>
-            {isStarted &&
-              text.split('').map((char, index) => {
-                let className = '';
-
-                if (errors.has(index)) {
-                  className = 'error';
-                } else if (index < currentIndex) {
-                  className = 'typed';
-                } else if (index === currentIndex) {
-                  className = 'current';
-                } else {
-                  className = 'upcoming';
-                }
-
-                return (
-                  <span key={index} className={className}>
-                    {char}
-                  </span>
-                );
-              })}
-          </p>
-          <div>
-            <p>Accuracy: {accuracy}%</p>
-            <p>Correct: {correctCount}</p>
-            <p>Wrong: {wrongCount}</p>
-          </div>
-
-          {isStarted && (
-            <input
-              ref={inputRef}
-              onKeyDown={handleKeyDown}
-              style={{
-                position: 'absolute',
-                opacity: 0,
-                pointerEvents: 'none',
-              }}
-            />
-          )}
-
-          {isFinished && <p>Complete</p>}
-        </div>
-      )}
       {!isStarted && <button onClick={startTyping}>Start</button>}
+
+      {isStarted && <TypingSession key={resetKey} text={text}></TypingSession>}
+
+      <button
+        onClick={() => {
+          setResetKey(prev => prev + 1);
+          setIsStarted(false);
+        }}
+      >
+        Restart
+      </button>
     </>
   );
 }
