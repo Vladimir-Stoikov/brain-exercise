@@ -22,7 +22,15 @@ export default function TouchTypingPage() {
     }, []);
 
     return (
-      <div>
+      <div
+        onClick={e => {
+          const target = e.target as HTMLElement;
+
+          if (target.tagName === 'BUTTON') return;
+
+          inputRef.current?.focus();
+        }}
+      >
         <p>Time: {time}</p>
 
         <p>
