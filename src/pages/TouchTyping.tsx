@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TypingSession from '../features/touch-typing/TypimgSession';
 
 export default function TouchTypingPage() {
@@ -12,12 +12,26 @@ export default function TouchTypingPage() {
     setIsStarted(true);
   }
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && !isStarted) {
+        setIsStarted(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isStarted]);
+
   return (
     <>
       <h2>Touch Typing</h2>
       {!isStarted && (
         <div>
-          <p>Press Start and begin typing</p>
+          <p>Press Start/Enter and begin typing</p>
         </div>
       )}
 
