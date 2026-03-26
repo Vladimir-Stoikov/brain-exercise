@@ -22,6 +22,29 @@ export function useTouchTyping(text: string) {
 const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
   if (isFinished) return;
 
+  if (e.key === 'Backspace') {
+    if (currentIndex === 0) return;
+
+    const prevIndex = currentIndex - 1;
+    const wasError = errors.has(prevIndex);
+
+    setCurrentIndex(prevIndex);
+
+    setErrors((prev) => {
+      const copy = new Set(prev);
+      copy.delete(prevIndex);
+      return copy;
+    });
+
+    if (wasError) {
+      setWrongCount((prev) => Math.max(0, prev - 1));
+    } else {
+      setCorrectCount((prev) => Math.max(0, prev - 1));
+    }
+
+    return;
+  }
+
   if (e.key.length !== 1) return;
 
   if (!isStarted) {
