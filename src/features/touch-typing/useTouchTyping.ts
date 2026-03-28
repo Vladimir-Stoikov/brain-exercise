@@ -8,6 +8,8 @@ export function useTouchTyping(text: string) {
   const [errors, setErrors] = useState<Set<number>>(new Set());
   const [correctCount, setCorrectCount] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
+  const [corrected, setCorrected] = useState<Set<number>>(new Set());
+  const [correctedCount, setCorrectedCount] = useState(0);
 
   useEffect(() => {
     if (!isStarted || isFinished) return;
@@ -52,22 +54,28 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
   }
 
   const expectedChar = text[currentIndex];
+  const isCorrect = e.key === expectedChar;
 
-  if (e.key === expectedChar) {
+  const alreadyError = errors.has(currentIndex);
+
+  if (isCorrect) {
+    const wasError = errors.has(currentIndex);
+
+    if (wasError) {
+      setCorrected((prev) => {
+        const copy = new Set(prev);
+        copy.add(currentIndex);
+        return copy;
+      });
+
+      setCorrectedCount((prev) => prev + 1);
+    }
 
     setCorrectCount((prev) => prev + 1);
-
-    setCurrentIndex((prev) => {
-      const next = prev + 1;
-
-      if (next === text.length) {
-        setIsFinished(true);
-      }
-
-      return next;
-    });
   } else {
-    setWrongCount((prev) => prev + 1);
+    if (!alreadyError) {
+      setWrongCount((prev) => prev + 1);
+    }
 
     setErrors((prev) => {
       const copy = new Set(prev);
@@ -75,6 +83,16 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       return copy;
     });
   }
+
+  setCurrentIndex((prev) => {
+    const next = prev + 1;
+
+    if (next === text.length) {
+      setIsFinished(true);
+    }
+
+    return next;
+  });
 
   e.preventDefault();
 };
@@ -94,6 +112,8 @@ const accuracy =
     accuracy,
     correctCount,
     wrongCount,
+    corrected,
+    correctedCount,
     handleKeyDown,
   };
 }

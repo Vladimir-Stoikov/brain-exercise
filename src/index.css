@@ -48,3 +48,7 @@ body {
 .upcoming {
   opacity: 0.4;
 }
+
+.corrected {
+  color: #40E0D0; 
+}

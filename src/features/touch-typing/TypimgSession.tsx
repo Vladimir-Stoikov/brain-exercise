@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useTouchTyping } from './useTouchTyping';
 
 export default function TypingSession({ text }: { text: string }) {
-  const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, handleKeyDown } = useTouchTyping(text);
+  const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, corrected, correctedCount, handleKeyDown } = useTouchTyping(text);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -28,6 +28,8 @@ export default function TypingSession({ text }: { text: string }) {
 
           if (errors.has(index)) {
             className = 'error';
+          } else if (corrected.has(index)) {
+            className = 'corrected';
           } else if (index < currentIndex) {
             className = 'typed';
           } else if (index === currentIndex) {
@@ -47,6 +49,7 @@ export default function TypingSession({ text }: { text: string }) {
         <p>Accuracy: {accuracy}%</p>
         <p>Correct: {correctCount}</p>
         <p>Wrong: {wrongCount}</p>
+        <p>Corrected: {correctedCount}</p>
       </div>
 
       <input
