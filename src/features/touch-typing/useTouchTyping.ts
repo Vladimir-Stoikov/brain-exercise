@@ -10,6 +10,7 @@ export function useTouchTyping(text: string) {
   const [wrongCount, setWrongCount] = useState(0);
   const [corrected, setCorrected] = useState<Set<number>>(new Set());
   const [correctedCount, setCorrectedCount] = useState(0);
+  const [mistyped, setMistyped] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (!isStarted || isFinished) return;
@@ -25,26 +26,26 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
   if (isFinished) return;
 
   if (e.key === 'Backspace') {
-    if (currentIndex === 0) return;
+  if (currentIndex === 0) return;
 
-    const prevIndex = currentIndex - 1;
-    const wasError = errors.has(prevIndex);
+  const prevIndex = currentIndex - 1;
+  const wasError = errors.has(prevIndex);
 
-    setCurrentIndex(prevIndex);
+  setCurrentIndex(prevIndex);
 
-    setErrors((prev) => {
-      const copy = new Set(prev);
-      copy.delete(prevIndex);
-      return copy;
-    });
+  setErrors((prev) => {
+    const copy = new Set(prev);
+    copy.delete(prevIndex);
+    return copy;
+  });
 
-    if (wasError) {
-      setWrongCount((prev) => Math.max(0, prev - 1));
-    } else {
-      setCorrectCount((prev) => Math.max(0, prev - 1));
-    }
+  if (wasError) {
+    setWrongCount((prev) => Math.max(0, prev - 1));
+  } else {
+    setCorrectCount((prev) => Math.max(0, prev - 1));
+  }
 
-    return;
+  return;
   }
 
   if (e.key.length !== 1) return;
@@ -59,9 +60,9 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
   const alreadyError = errors.has(currentIndex);
 
   if (isCorrect) {
-    const wasError = errors.has(currentIndex);
+    const wasMistyped = mistyped.has(currentIndex);
 
-    if (wasError) {
+    if (wasMistyped) {
       setCorrected((prev) => {
         const copy = new Set(prev);
         copy.add(currentIndex);
@@ -72,17 +73,23 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     }
 
     setCorrectCount((prev) => prev + 1);
-  } else {
-    if (!alreadyError) {
-      setWrongCount((prev) => prev + 1);
-    }
-
-    setErrors((prev) => {
-      const copy = new Set(prev);
-      copy.add(currentIndex);
-      return copy;
-    });
+} else {
+  if (!alreadyError) {
+    setWrongCount((prev) => prev + 1);
   }
+
+  setErrors((prev) => {
+    const copy = new Set(prev);
+    copy.add(currentIndex);
+    return copy;
+  });
+
+  setMistyped((prev) => {
+    const copy = new Set(prev);
+    copy.add(currentIndex);
+    return copy;
+  });
+}
 
   setCurrentIndex((prev) => {
     const next = prev + 1;
