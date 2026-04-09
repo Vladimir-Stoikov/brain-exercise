@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import TypingSession from '../features/touch-typing/TypimgSession';
+import ButtonSt from '../components/styled-components/ButtonSt.styled';
+import { TypingLayout } from '../features/touch-typing/styled-components/TypingLayout.styled';
 
 export default function TouchTypingPage() {
   const text = 'The quick brown fox jumps over the lazy dog';
@@ -27,7 +29,7 @@ export default function TouchTypingPage() {
   }, [isStarted]);
 
   return (
-    <>
+    <TypingLayout>
       <h2>Touch Typing</h2>
       {!isStarted && (
         <div>
@@ -35,18 +37,20 @@ export default function TouchTypingPage() {
         </div>
       )}
 
-      {!isStarted && <button onClick={startTyping}>Start</button>}
+      {!isStarted && <ButtonSt onClick={startTyping}>Start</ButtonSt>}
 
       {isStarted && <TypingSession key={resetKey} text={text}></TypingSession>}
 
-      <button
-        onClick={() => {
-          setResetKey(prev => prev + 1);
-          setIsStarted(false);
-        }}
-      >
-        Restart
-      </button>
-    </>
+      {isStarted && (
+        <ButtonSt
+          onClick={() => {
+            setResetKey(prev => prev + 1);
+            setIsStarted(false);
+          }}
+        >
+          Restart
+        </ButtonSt>
+      )}
+    </TypingLayout>
   );
 }

@@ -1,5 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useTouchTyping } from './useTouchTyping';
+import { TypingLayout } from './styled-components/TypingLayout.styled';
+import { TypingStats } from './styled-components/TypingStats.styled';
+import { TypingText } from './styled-components/TypingText.styled';
 
 export default function TypingSession({ text }: { text: string }) {
   const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, corrected, correctedCount, handleKeyDown } = useTouchTyping(text);
@@ -11,7 +14,7 @@ export default function TypingSession({ text }: { text: string }) {
   }, []);
 
   return (
-    <div
+    <TypingLayout
       onClick={e => {
         const target = e.target as HTMLElement;
 
@@ -20,9 +23,11 @@ export default function TypingSession({ text }: { text: string }) {
         inputRef.current?.focus();
       }}
     >
-      <p>Time: {time}</p>
+      <h3>
+        <span>Time ⏱: {time}</span>
+      </h3>
 
-      <p>
+      <TypingText>
         {text.split('').map((char, index) => {
           let className = '';
 
@@ -44,14 +49,13 @@ export default function TypingSession({ text }: { text: string }) {
             </span>
           );
         })}
-      </p>
-      <div>
-        <p>Accuracy: {accuracy}%</p>
-        <p>Correct: {correctCount}</p>
-        <p>Wrong: {wrongCount}</p>
-        <p>Corrected: {correctedCount}</p>
-      </div>
-
+      </TypingText>
+      <TypingStats>
+        <span>Accuracy 🎯: {accuracy}%</span>
+        <span>✔ Correct: {correctCount}</span>
+        <span>✖ Wrong: {wrongCount}</span>
+        <span>🔧 Corrected: {correctedCount}</span>
+      </TypingStats>
       <input
         ref={inputRef}
         onKeyDown={handleKeyDown}
@@ -61,8 +65,7 @@ export default function TypingSession({ text }: { text: string }) {
           pointerEvents: 'none',
         }}
       />
-
       {isFinished && <p>Complete</p>}
-    </div>
+    </TypingLayout>
   );
 }

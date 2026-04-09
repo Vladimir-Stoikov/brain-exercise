@@ -2,14 +2,15 @@ import styled from "styled-components";
 
 
 const ButtonSt = styled.button`
-padding: 0.5rem 0.2rem;
+padding: 0.5rem 0.4rem;
 margin: 0.2rem;
 height: auto;
 width: auto;
 background-color: var(--secondary);
 color: white;
-border-radius: 0.5rem;
-border: solid 0.3rem white;
+border-radius: 0.4rem;
+border: solid 0.15rem white;
+box-shadow: 5px 5px 5px rgb(0 0 0 / 0.15);
 &:hover {
   background-color: var(--secondary-light);
 }

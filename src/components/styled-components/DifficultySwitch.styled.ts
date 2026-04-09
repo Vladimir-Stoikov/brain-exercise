@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 export const DifficultyWrapper = styled.div`
   display: flex;
+  justify-content: center;
   gap: 8px;
-  margin-top: 12px;
+  margin: 12px 0;
 `;
 
 export const DifficultyButton = styled.button<{ $active: boolean }>`
