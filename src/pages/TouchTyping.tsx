@@ -16,8 +16,18 @@ export default function TouchTypingPage() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' && !isStarted) {
+      if (e.key !== 'Enter') return;
+
+      if (!isStarted) {
         setIsStarted(true);
+        return;
+      }
+
+      const isFinished = document.querySelector('[data-finished="true"]');
+
+      if (isFinished) {
+        setResetKey(prev => prev + 1);
+        setIsStarted(false);
       }
     };
 

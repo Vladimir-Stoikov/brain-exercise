@@ -22,6 +22,7 @@ export default function TypingSession({ text }: { text: string }) {
 
         inputRef.current?.focus();
       }}
+      data-finished={isFinished}
     >
       <h3>
         <span>Time ⏱: {time}</span>
