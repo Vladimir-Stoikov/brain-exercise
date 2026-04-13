@@ -51,12 +51,14 @@ export default function TypingSession({ text }: { text: string }) {
           );
         })}
       </TypingText>
-      <TypingStats>
-        <span>Accuracy 🎯: {accuracy}%</span>
-        <span>✔ Correct: {correctCount}</span>
-        <span>✖ Wrong: {wrongCount}</span>
-        <span>🔧 Corrected: {correctedCount}</span>
-      </TypingStats>
+      {isFinished && (
+        <TypingStats>
+          <span>Accuracy 🎯: {accuracy}%</span>
+          <span>✔ Correct: {correctCount}</span>
+          <span>✖ Wrong: {wrongCount}</span>
+          <span>🔧 Corrected: {correctedCount}</span>
+        </TypingStats>
+      )}
       <input
         ref={inputRef}
         onKeyDown={handleKeyDown}
