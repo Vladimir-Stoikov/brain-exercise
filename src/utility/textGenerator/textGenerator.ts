@@ -36,3 +36,13 @@ export function generateSentence(): string {
 
   return `${subject} ${verb} ${object}.`;
 }
+
+export function generateText(sentencesCount: number): string {
+  const sentences = [];
+
+  for (let i = 0; i < sentencesCount; i++) {
+    sentences.push(generateSentence());
+  }
+
+  return sentences.join(' ');
+}
