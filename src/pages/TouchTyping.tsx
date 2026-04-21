@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import TypingSession from '../features/touch-typing/TypimgSession';
 import ButtonSt from '../components/styled-components/ButtonSt.styled';
 import { TypingLayout } from '../features/touch-typing/styled-components/TypingLayout.styled';
 import { generateText } from '../utility/textGenerator/textGenerator';
 
 export default function TouchTypingPage() {
-  // const text = 'The quick brown fox jumps over the lazy dog';
-  const text = generateText(2);
-
   const [resetKey, setResetKey] = useState(0);
+
+  // const text = 'The quick brown fox jumps over the lazy dog';
+  const text = useMemo(() => generateText(2), [resetKey]);
 
   const [isStarted, setIsStarted] = useState(false);
 
