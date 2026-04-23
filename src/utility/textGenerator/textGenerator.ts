@@ -1,3 +1,5 @@
+type Difficulty = 'easy' | 'medium' | 'hard' | 'veryHard';
+
 const subjects = [
   'The cat',
   'A dog',
@@ -29,6 +31,19 @@ function getRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function getWordsByDifficulty(difficulty: Difficulty) {
+  switch (difficulty) {
+    case 'easy':
+      return easyWords;
+    case 'medium':
+      return mediumWords;
+    case 'hard':
+      return hardWords;
+    case 'veryHard':
+      return [...hardWords, 'synchronization', 'transformation', 'architecture'];
+  }
+}
+
 export function generateSentence(): string {
   const subject = getRandom(subjects);
   const verb = getRandom(verbs);
@@ -37,12 +52,15 @@ export function generateSentence(): string {
   return `${subject} ${verb} ${object}.`;
 }
 
-export function generateText(sentencesCount: number): string {
-  const sentences = [];
 
-  for (let i = 0; i < sentencesCount; i++) {
-    sentences.push(generateSentence());
-  }
+export function generateText(difficulty: Difficulty) {
+  let count = 2;
 
-  return sentences.join(' ');
+  if (difficulty === 'medium') count = 3;
+  if (difficulty === 'hard') count = 4;
+  if (difficulty === 'veryHard') count = 5;
+
+  return Array.from({ length: count })
+    .map(() => generateSentence(difficulty))
+    .join(' ');
 }

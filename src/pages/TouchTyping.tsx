@@ -1,20 +1,28 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useContext } from 'react';
 import TypingSession from '../features/touch-typing/TypimgSession';
 import ButtonSt from '../components/styled-components/ButtonSt.styled';
 import { TypingLayout } from '../features/touch-typing/styled-components/TypingLayout.styled';
 import { generateText } from '../utility/textGenerator/textGenerator';
+import { DifficultyContext } from '../utility/DifficultyContext';
 
 export default function TouchTypingPage() {
   const [resetKey, setResetKey] = useState(0);
+  const { difficulty } = useContext(DifficultyContext);
 
-  // const text = 'The quick brown fox jumps over the lazy dog';
-  const text = useMemo(() => generateText(2), [resetKey]);
+  // const text = useMemo(() => generateText(2), [resetKey]);
+  const [text, setText] = useState(() => generateText(difficulty));
 
   const [isStarted, setIsStarted] = useState(false);
 
   function startTyping() {
     setIsStarted(true);
   }
+
+useEffect(() => {
+  setText(generateText(difficulty));
+  setResetKey(prev => prev + 1); 
+  setIsStarted(false);
+}, [difficulty]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -57,6 +65,7 @@ export default function TouchTypingPage() {
         <ButtonSt
           onClick={() => {
             setResetKey(prev => prev + 1);
+            setText(generateText(difficulty));
             setIsStarted(false);
           }}
         >
