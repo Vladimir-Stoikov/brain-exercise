@@ -1,59 +1,17 @@
-type Difficulty = 'easy' | 'medium' | 'hard' | 'veryHard';
+import { WORD_POOLS, type DifficultyWords } from './wordPools';
 
-const subjects = [
-  'The cat',
-  'A dog',
-  'The programmer',
-  'My friend',
-  'The teacher',
-  'A student',
-];
-
-const verbs = [
-  'writes',
-  'reads',
-  'builds',
-  'creates',
-  'tests',
-  'fixes',
-];
-
-const objects = [
-  'a program',
-  'the code',
-  'a new app',
-  'the system',
-  'a solution',
-  'a project',
-];
-
-function getRandom<T>(arr: T[]): T {
+function getRandom(arr: string[]) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function getWordsByDifficulty(difficulty: Difficulty) {
-  switch (difficulty) {
-    case 'easy':
-      return easyWords;
-    case 'medium':
-      return mediumWords;
-    case 'hard':
-      return hardWords;
-    case 'veryHard':
-      return [...hardWords, 'synchronization', 'transformation', 'architecture'];
-  }
-}
+export function generateSentence(difficulty: DifficultyWords) {
+  const pool = WORD_POOLS[difficulty];
 
-export function generateSentence(): string {
-  const subject = getRandom(subjects);
-  const verb = getRandom(verbs);
-  const object = getRandom(objects);
-
-  return `${subject} ${verb} ${object}.`;
+  return `${getRandom(pool.subjects)} ${getRandom(pool.verbs)} ${getRandom(pool.objects)}.`;
 }
 
 
-export function generateText(difficulty: Difficulty) {
+export function generateText(difficulty: DifficultyWords) {
   let count = 2;
 
   if (difficulty === 'medium') count = 3;
