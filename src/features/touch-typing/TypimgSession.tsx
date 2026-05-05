@@ -1,11 +1,14 @@
 import { useEffect, useRef } from 'react';
+import { DifficultyContext } from '../../utility/DifficultyContext';
 import { useTouchTyping } from './useTouchTyping';
 import { TypingLayout } from './styled-components/TypingLayout.styled';
 import { TypingStats } from './styled-components/TypingStats.styled';
 import { TypingText } from './styled-components/TypingText.styled';
 
 export default function TypingSession({ text }: { text: string }) {
-  const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, corrected, correctedCount, handleKeyDown } = useTouchTyping(text);
+  const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, corrected, correctedCount, handleKeyDown} = useTouchTyping(text, difficulty);
+  // const { difficulty } = useContext(DifficultyContext);
+  // const isStrictMode = difficulty === 'hard' || difficulty === 'veryHard';
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -56,7 +59,7 @@ export default function TypingSession({ text }: { text: string }) {
           <span>Accuracy 🎯: {accuracy}%</span>
           <span>✔ Correct: {correctCount}</span>
           <span>✖ Wrong: {wrongCount}</span>
-          <span>🔧 Corrected: {correctedCount}</span>
+          {!isStrictMode && <span>🔧 Corrected: {correctedCount}</span>}
         </TypingStats>
       )}
       <input

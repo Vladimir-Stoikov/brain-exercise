@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useTouchTyping(text: string) {
+export function useTouchTyping(text: string, difficulty: Difficulty) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [time, setTime] = useState(0);
@@ -11,6 +11,8 @@ export function useTouchTyping(text: string) {
   const [corrected, setCorrected] = useState<Set<number>>(new Set());
   const [correctedCount, setCorrectedCount] = useState(0);
   const [mistyped, setMistyped] = useState<Set<number>>(new Set());
+
+  const isStrictMode = difficulty === 'hard' || difficulty === 'veryHard';
 
   useEffect(() => {
     if (!isStarted || isFinished) return;
@@ -27,6 +29,7 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 
   if (e.key === 'Backspace') {
   if (currentIndex === 0) return;
+  if (isStrictMode) return;
 
   const prevIndex = currentIndex - 1;
   const wasError = errors.has(prevIndex);
@@ -62,7 +65,7 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
   if (isCorrect) {
     const wasMistyped = mistyped.has(currentIndex);
 
-    if (wasMistyped) {
+    if (wasMistyped && !isStrictMode) {
       setCorrected((prev) => {
         const copy = new Set(prev);
         copy.add(currentIndex);
