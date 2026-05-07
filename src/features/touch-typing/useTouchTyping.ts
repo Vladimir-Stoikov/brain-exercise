@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 
+type Difficulty =  'easy' | 'medium' | 'hard' | 'veryHard';
+
+
 export function useTouchTyping(text: string, difficulty: Difficulty) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);

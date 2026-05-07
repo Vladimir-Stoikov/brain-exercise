@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import TypingSession from '../features/touch-typing/TypimgSession';
 import ButtonSt from '../components/styled-components/ButtonSt.styled';
 import { TypingLayout } from '../features/touch-typing/styled-components/TypingLayout.styled';
@@ -18,11 +18,11 @@ export default function TouchTypingPage() {
     setIsStarted(true);
   }
 
-useEffect(() => {
-  setText(generateText(difficulty));
-  setResetKey(prev => prev + 1); 
-  setIsStarted(false);
-}, [difficulty]);
+  useEffect(() => {
+    setText(generateText(difficulty));
+    setResetKey(prev => prev + 1);
+    setIsStarted(false);
+  }, [difficulty]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
