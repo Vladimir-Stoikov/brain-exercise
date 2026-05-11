@@ -4,6 +4,7 @@ import { useTouchTyping } from './useTouchTyping';
 import { TypingLayout } from './styled-components/TypingLayout.styled';
 import { TypingStats } from './styled-components/TypingStats.styled';
 import { TypingText } from './styled-components/TypingText.styled';
+import TouchKeyboard from './keyboard/TouchKeyboard';
 
 export default function TypingSession({ text }: { text: string }) {
   const { difficulty } = useContext(DifficultyContext);
@@ -31,7 +32,6 @@ export default function TypingSession({ text }: { text: string }) {
       <h3>
         <span>Time ⏱: {time}</span>
       </h3>
-
       <TypingText>
         {text.split('').map((char, index) => {
           let className = '';
@@ -73,6 +73,7 @@ export default function TypingSession({ text }: { text: string }) {
         }}
       />
       {isFinished && <p>Complete</p>}
+      <TouchKeyboard />
     </TypingLayout>
   );
 }

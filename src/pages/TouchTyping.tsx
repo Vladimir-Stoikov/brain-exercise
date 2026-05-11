@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import TypingSession from '../features/touch-typing/TypimgSession';
+import TypingSession from '../features/touch-typing/TypingSession';
 import ButtonSt from '../components/styled-components/ButtonSt.styled';
 import { TypingLayout } from '../features/touch-typing/styled-components/TypingLayout.styled';
 import { generateText } from '../utility/textGenerator/textGenerator';
