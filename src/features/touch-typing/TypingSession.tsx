@@ -73,7 +73,8 @@ export default function TypingSession({ text }: { text: string }) {
         }}
       />
       {isFinished && <p>Complete</p>}
-      <TouchKeyboard />
+      <TouchKeyboard currentChar={text[currentIndex]} />
+      <p style={{ marginTop: '16px', textAlign: 'center' }}>Finger: {activeFinger ?? '-'}</p>
     </TypingLayout>
   );
 }

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 type KeyButtonProps = {
   $width?: 'medium' | 'large' | 'xlarge' | 'space';
   $anchor?: boolean;
+  $active?: boolean;
 };
 
 export const KeyButton = styled.div<KeyButtonProps>`
@@ -55,4 +56,15 @@ export const KeyButton = styled.div<KeyButtonProps>`
       border-color: #40e0d0;
       box-shadow: 0 0 8px rgba(64, 224, 208, 0.6);
     `}
+
+  ${({ $active }) =>
+  $active &&
+  css`
+    background: var(--secondary-light);
+    border-color: #40e0d0;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 0 14px rgba(64, 224, 208, 0.8);
+  `}
 `;
