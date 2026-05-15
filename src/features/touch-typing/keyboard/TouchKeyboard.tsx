@@ -1,33 +1,32 @@
 import { keyboardRows } from './keyboardLayout';
 import { fingerMap } from './fingerMap';
 
+import { KeyboardLayout, KeyboardRow } from './styled-components/KeyboardLayout.styled';
+import { KeyButton } from './styled-components/KeyButton.styled';
+
 type TouchKeyboardProps = {
   currentChar: string;
 };
 
-import { KeyboardLayout, KeyboardRow } from './styled-components/KeyboardLayout.styled';
-
-import { KeyButton } from './styled-components/KeyButton.styled';
-
-export default function TouchKeyboard({ currentChar }): TouchKeyboardProps {
+export default function TouchKeyboard({ currentChar }: TouchKeyboardProps) {
   const normalizedChar = currentChar?.toLowerCase();
-
-  const activeFinger = fingerMap[normalizedChar];
 
   return (
     <KeyboardLayout>
-      {keyboardRows.map((row, rowIndex) => {
-        const isActive = button.key.toLowerCase() === normalizedChar;
-        return (
-          <KeyboardRow key={rowIndex}>
-            {row.map(button => (
+      {keyboardRows.map((row, rowIndex) => (
+        <KeyboardRow key={rowIndex}>
+          {row.map(button => {
+            const isActive = button.key.toLowerCase() === normalizedChar;
+            const activeFinger = fingerMap[normalizedChar];
+            return (
               <KeyButton key={button.key} $width={button.width} $anchor={button.anchor} $active={isActive}>
                 {button.key}
+                {isActive && <small>{activeFinger}</small>}
               </KeyButton>
-            ))}
-          </KeyboardRow>
-        );
-      })}
+            );
+          })}
+        </KeyboardRow>
+      ))}
     </KeyboardLayout>
   );
 }
