@@ -10,18 +10,35 @@ type TouchKeyboardProps = {
 
 export default function TouchKeyboard({ currentChar }: TouchKeyboardProps) {
   const normalizedChar = currentChar?.toLowerCase();
+  const isUpperCase = currentChar !== normalizedChar;
+
+  const shouldHighlightShift = isUpperCase;
+
+  const shouldHighlightSpace = currentChar === ' ';
 
   return (
     <KeyboardLayout>
       {keyboardRows.map((row, rowIndex) => (
         <KeyboardRow key={rowIndex}>
           {row.map(button => {
-            const isActive = button.key.toLowerCase() === normalizedChar;
+            const isLetterActive = button.key.toLowerCase() === normalizedChar;
+
+            const isShiftKey = button.key === 'Shift';
+
+            const isSpaceKey = button.key === 'Space';
+
+            const isActive = isLetterActive || (shouldHighlightShift && isShiftKey) || (shouldHighlightSpace && isSpaceKey);
+
             const activeFinger = fingerMap[normalizedChar];
             return (
               <KeyButton key={button.key} $width={button.width} $anchor={button.anchor} $active={isActive}>
                 {button.key}
-                {isActive && <small>{activeFinger}</small>}
+                {isActive && (
+                  <small>
+                    {activeFinger?.hand}
+                    {activeFinger?.finger}
+                  </small>
+                )}
               </KeyButton>
             );
           })}

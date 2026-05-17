@@ -1,41 +1,46 @@
-export const fingerMap: Record<string, number> = {
-  q: 1,
-  a: 1,
-  z: 1,
+export type FingerData = {
+  hand: 'L' | 'R';
+  finger: number | 'T';
+};
 
-  w: 2,
-  s: 2,
-  x: 2,
+export const fingerMap: Record<string, FingerData> = {
+  q: { hand: 'L', finger: 1 },
+  a: { hand: 'L', finger: 1 },
+  z: { hand: 'L', finger: 1 },
 
-  e: 3,
-  d: 3,
-  c: 3,
+  w: { hand: 'L', finger: 2 },
+  s: { hand: 'L', finger: 2 },
+  x: { hand: 'L', finger: 2 },
 
-  r: 4,
-  t: 4,
-  f: 4,
-  g: 4,
-  v: 4,
-  b: 4,
+  e: { hand: 'L', finger: 3 },
+  d: { hand: 'L', finger: 3 },
+  c: { hand: 'L', finger: 3 },
 
-  y: 5,
-  u: 5,
-  h: 5,
-  j: 5,
-  n: 5,
-  m: 5,
+  r: { hand: 'L', finger: 4 },
+  t: { hand: 'L', finger: 4 },
+  f: { hand: 'L', finger: 4 },
+  g: { hand: 'L', finger: 4 },
+  v: { hand: 'L', finger: 4 },
+  b: { hand: 'L', finger: 4 },
 
-  i: 6,
-  k: 6,
-  ',': 6,
+  y: { hand: 'R', finger: 4 },
+  u: { hand: 'R', finger: 4 },
+  h: { hand: 'R', finger: 4 },
+  j: { hand: 'R', finger: 4 },
+  n: { hand: 'R', finger: 4 },
+  m: { hand: 'R', finger: 4 },
 
-  o: 7,
-  l: 7,
-  '.': 7,
+  i: { hand: 'R', finger: 3 },
+  k: { hand: 'R', finger: 3 },
+  ',': { hand: 'R', finger: 3 },
 
-  p: 8,
-  ';': 8,
-  '/': 8,
+  o: { hand: 'R', finger: 2 },
+  l: { hand: 'R', finger: 2 },
+  '.': { hand: 'R', finger: 2 },
 
-  ' ': 5,
+  p: { hand: 'R', finger: 1 },
+  ';': { hand: 'R', finger: 1 },
+  '/': { hand: 'R', finger: 1 },
+
+  ' ': { hand: 'R', finger: 'T' },
 };
