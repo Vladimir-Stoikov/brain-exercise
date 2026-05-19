@@ -63,6 +63,7 @@ export default function TypingSession({ text }: { text: string }) {
           {!isStrictMode && <span>🔧 Corrected: {correctedCount}</span>}
         </TypingStats>
       )}
+
       <input
         ref={inputRef}
         onKeyDown={handleKeyDown}

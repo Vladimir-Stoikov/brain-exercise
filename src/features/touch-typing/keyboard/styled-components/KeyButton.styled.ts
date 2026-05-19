@@ -16,7 +16,15 @@ export const KeyButton = styled.div<KeyButtonProps>`
   align-items: center;
   justify-content: center;
 
-  background: var(--primary);
+background: linear-gradient(
+  180deg,
+  rgba(29, 84, 108, 1) 0%,
+  rgba(26, 61, 100, 1) 100%
+);
+
+box-shadow:
+  inset 0 1px 0 rgba(255,255,255,0.06),
+  0 4px 10px rgba(0,0,0,0.25);
   border: 2px solid var(--secondary-light);
 
   color: var(--text-color-light);
@@ -63,7 +71,9 @@ export const KeyButton = styled.div<KeyButtonProps>`
     background: var(--secondary-light);
     border-color: #40e0d0;
 
-    transform: translateY(-2px);
+    transform:
+  translateY(-2px)
+  scale(1.03);
 
     box-shadow: 0 0 14px rgba(64, 224, 208, 0.8);
   `}
