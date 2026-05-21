@@ -74,7 +74,7 @@ export default function TypingSession({ text }: { text: string }) {
         }}
       />
       {isFinished && <p>Complete</p>}
-      <TouchKeyboard currentChar={text[currentIndex]} />
+      {!isStrictMode && <TouchKeyboard currentChar={text[currentIndex]} />}
     </TypingLayout>
   );
 }

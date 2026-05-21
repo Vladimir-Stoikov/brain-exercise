@@ -16,29 +16,33 @@ export default function TouchKeyboard({ currentChar }: TouchKeyboardProps) {
 
   const shouldHighlightSpace = currentChar === ' ';
 
+  const activeFinger = fingerMap[normalizedChar];
+
   return (
     <KeyboardLayout>
       {keyboardRows.map((row, rowIndex) => (
         <KeyboardRow key={rowIndex}>
-          {row.map(button => {
+          {row.map((button, buttonIndex) => {
             const isLetterActive = button.key.toLowerCase() === normalizedChar;
-
             const isShiftKey = button.key === 'Shift';
+
+            const isLeftShift = isShiftKey && buttonIndex === 0;
+
+            const isRightShift = isShiftKey && buttonIndex === row.length - 1;
+
+            const shouldUseLeftShift = shouldHighlightShift && activeFinger?.hand === 'R';
+
+            const shouldUseRightShift = shouldHighlightShift && activeFinger?.hand === 'L';
+
+            const isCorrectShift = (isLeftShift && shouldUseLeftShift) || (isRightShift && shouldUseRightShift);
 
             const isSpaceKey = button.key === 'Space';
 
-            const isActive = isLetterActive || (shouldHighlightShift && isShiftKey) || (shouldHighlightSpace && isSpaceKey);
-
-            const activeFinger = fingerMap[normalizedChar];
+            const isActive = isLetterActive || isCorrectShift || (shouldHighlightSpace && isSpaceKey);
             return (
               <KeyButton key={button.key} $width={button.width} $anchor={button.anchor} $active={isActive}>
                 {button.key}
-                {isActive && (
-                  <small>
-                    {activeFinger?.hand}
-                    {activeFinger?.finger}
-                  </small>
-                )}
+                {isActive && <small>{isCorrectShift ? (activeFinger?.hand === 'L' ? 'R1' : 'L1') : `${activeFinger?.hand}${activeFinger?.finger}`}</small>}
               </KeyButton>
             );
           })}
