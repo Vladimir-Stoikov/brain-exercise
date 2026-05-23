@@ -3,11 +3,11 @@ import './App.css';
 import NavBar from './components/NavBar';
 import MainSt from './components/styled-components/MainSt.styled';
 import { useState } from 'react';
-import { DifficultyContext } from './utility/DifficultyContext';
+import { DifficultyContext, type DifficultyValues } from './utility/DifficultyContext';
 import { ErrorBoundaryWithReset } from './components/ErrorBoundaryWithReset';
 
 function App() {
-  const [difficulty, setDifficulty] = useState('medium');
+  const [difficulty, setDifficulty] = useState<DifficultyValues>('medium');
 
   return (
     <ErrorBoundaryWithReset>
