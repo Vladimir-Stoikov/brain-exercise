@@ -9,7 +9,7 @@ export default function StroopControls({ colors, onSelect, disabled }: Props) {
   return (
     <div>
       {colors.map(color => (
-        <StroopButton disabled={disabled} onClick={() => onSelect(color.value)}>
+        <StroopButton key={color.name} disabled={disabled} onClick={() => onSelect(color.value)}>
           {color.name}
         </StroopButton>
       ))}

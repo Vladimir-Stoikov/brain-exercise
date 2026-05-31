@@ -106,7 +106,7 @@ const veryHard: WordPools = {
   ],
 };
 
-export const WORD_POOLS: Record<Difficulty, WordPools> = {
+export const WORD_POOLS: Record<DifficultyWords, WordPools> = {
   easy,
   medium,
   hard,
