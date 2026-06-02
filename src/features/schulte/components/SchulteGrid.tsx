@@ -7,22 +7,32 @@ interface SchulteGridProps {
   grid: number[];
 }
 
-type ResultArrType = Array<number | '👁️'>;
 type ValueType = number | '👁️';
+type Cell = {
+  value: ValueType;
+  color: string;
+};
 
-const shuffle = (arr: number[]) => {
+const shuffle = (arr: number[]): Cell[] => {
   const basedArr = [...arr];
-  const resultArr: ResultArrType = [];
+  const resultArr: ValueType[] = [];
+
   for (let i = 0; i < arr.length; i++) {
     if (i < arr.length - 1) {
       resultArr.push(basedArr.splice(Math.floor(Math.random() * basedArr.length), 1)[0]);
     } else {
       const centralIndex = Math.floor(arr.length / 2);
+
       resultArr.splice(centralIndex, 0, '👁️');
+
       resultArr.push(basedArr[0]);
     }
   }
-  return resultArr;
+
+  return resultArr.map(value => ({
+    value,
+    color: generateLightColor(),
+  }));
 };
 
 export default function SchulteGrid({ grid }: SchulteGridProps) {
@@ -42,18 +52,12 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
     }
   }
 
-  const colorMap = useMemo(() => {
-    const map = new Map();
-    shuffledGrid.forEach(value => map.set(value, generateLightColor()));
-    return map;
-  }, [shuffledGrid]);
-
   return (
     <SectionGridSt $size={size}>
-      {shuffledGrid.map((cellNum, id) => {
-        const isCompleted = typeof cellNum === 'number' && cellNum < counter;
+      {shuffledGrid.map((cell, id) => {
+        const isCompleted = typeof cell.value === 'number' && cell.value < counter;
 
-        return <SchulteCell key={id} value={cellNum} onClick={value => checkClick(value)} color={isCompleted ? 'white' : colorMap.get(cellNum)} />;
+        return <SchulteCell key={id} value={cell.value} onClick={value => checkClick(value)} color={isCompleted ? 'white' : cell.color} />;
       })}
     </SectionGridSt>
   );
