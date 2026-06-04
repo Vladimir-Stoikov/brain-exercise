@@ -1,11 +1,10 @@
 import React from 'react';
 import ButtonCellSt from '../styled-components/ButtonCellSt.styled';
-
-type ValueType = number | '👁️';
+import type { SchulteValue } from '../utils/schulteTypes';
 
 interface SchulteCellProp {
-  value: ValueType;
-  onClick: (value: ValueType) => void;
+  value: SchulteValue;
+  onClick: (value: SchulteValue) => void;
   color: string;
 }
 
