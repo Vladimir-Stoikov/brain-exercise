@@ -3,6 +3,7 @@ import SchulteCell from './SchulteCell';
 import SectionGridSt from '../styled-components/SectionGridSt.styled';
 import { generateSchulteGrid } from '../utils/generateSchulteGrid';
 import type { SchulteValue } from '../utils/schulteTypes';
+import SchulteFinished from './SchulteFinished';
 
 interface SchulteGridProps {
   grid: number[];
@@ -10,6 +11,7 @@ interface SchulteGridProps {
 
 export default function SchulteGrid({ grid }: SchulteGridProps) {
   const [counter, setCounter] = useState<number>(1);
+  const [isFinished, setIsFinished] = useState(false);
   const shuffledGrid = useMemo(() => generateSchulteGrid(grid), [grid]);
   const size = Math.sqrt(shuffledGrid.length);
 
@@ -22,16 +24,19 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
     }
     if (counter === grid.length) {
       console.log('congrads');
+      setIsFinished(true);
     }
   }
 
   return (
     <SectionGridSt $size={size}>
-      {shuffledGrid.map((cell, id) => {
-        const isCompleted = typeof cell.value === 'number' && cell.value < counter;
+      {!isFinished &&
+        shuffledGrid.map((cell, id) => {
+          const isCompleted = typeof cell.value === 'number' && cell.value < counter;
 
-        return <SchulteCell key={id} value={cell.value} onClick={value => checkClick(value)} color={isCompleted ? 'white' : cell.color} />;
-      })}
+          return <SchulteCell key={id} value={cell.value} onClick={value => checkClick(value)} color={isCompleted ? 'white' : cell.color} />;
+        })}
+      {isFinished && <SchulteFinished />}
     </SectionGridSt>
   );
 }
