@@ -29,14 +29,17 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
   }
 
   return (
-    <SectionGridSt $size={size}>
-      {!isFinished &&
-        shuffledGrid.map((cell, id) => {
-          const isCompleted = typeof cell.value === 'number' && cell.value < counter;
-
-          return <SchulteCell key={id} value={cell.value} onClick={value => checkClick(value)} color={isCompleted ? 'white' : cell.color} />;
-        })}
-      {isFinished && <SchulteFinished />}
-    </SectionGridSt>
+    <>
+      {!isFinished ? (
+        <SectionGridSt $size={size}>
+          {shuffledGrid.map((cell, id) => {
+            const isCompleted = typeof cell.value === 'number' && cell.value < counter;
+            return <SchulteCell key={id} value={cell.value} onClick={value => checkClick(value)} color={isCompleted ? 'white' : cell.color} />;
+          })}
+        </SectionGridSt>
+      ) : (
+        <SchulteFinished time={100} errors={2} onRestart={() => console.log('restart')} />
+      )}
+    </>
   );
 }

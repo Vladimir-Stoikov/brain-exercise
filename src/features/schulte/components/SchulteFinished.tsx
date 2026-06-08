@@ -1,11 +1,34 @@
+import React from 'react';
+import { formatSchulteTime } from '../utils/formatSchulteTime'; // Adjust path accordingly
+import { ActionButtonSt, FinishedContainerSt, FinishedTitleSt, StatRowSt, StatsGroupSt } from '../styled-components/FinishedContainerSt';
+
 interface SchulteFinishedProps {
-  time: number;
+  time: number; // Time elapsed in seconds (e.g., 45)
+  errors: number; // Number of wrong clicks recorded during the round
+  onRestart: () => void;
 }
 
-export default function SchulteFinished({ time }: SchulteFinishedProps) {
+export default function SchulteFinished({ time, errors, onRestart }: SchulteFinishedProps) {
   return (
-    <section>
-      <h2>The table is passed 🎉</h2>
-    </section>
+    <FinishedContainerSt>
+      <div>
+        <FinishedTitleSt>Table Completed! 🎉</FinishedTitleSt>
+        <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>Excellent focus performance</p>
+      </div>
+
+      <StatsGroupSt>
+        <StatRowSt>
+          <span>Completion Time</span>
+          <span>{formatSchulteTime(time)}</span>
+        </StatRowSt>
+
+        <StatRowSt>
+          <span>Errors Made</span>
+          <span style={{ color: errors > 0 ? 'var(--error-indicator-color)' : 'var(--success-indicator-color)' }}>{errors}</span>
+        </StatRowSt>
+      </StatsGroupSt>
+
+      <ActionButtonSt onClick={onRestart}>Play Again</ActionButtonSt>
+    </FinishedContainerSt>
   );
 }
