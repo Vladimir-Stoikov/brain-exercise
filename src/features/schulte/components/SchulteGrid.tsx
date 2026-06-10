@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import SchulteCell from './SchulteCell';
 import SectionGridSt from '../styled-components/SectionGridSt.styled';
 import { generateSchulteGrid } from '../utils/generateSchulteGrid';
@@ -14,17 +14,27 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
   const [isFinished, setIsFinished] = useState(false);
   const shuffledGrid = useMemo(() => generateSchulteGrid(grid), [grid]);
   const size = Math.sqrt(shuffledGrid.length);
+  const [time, setTime] = useState(0);
+  const [finalTime, setFinalTime] = useState<number>(0);
+
+  useEffect(() => {
+    if (isFinished) return;
+
+    const interval = setInterval(() => {
+      setTime(prev => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isFinished]);
 
   function checkClick(value: SchulteValue) {
     if (value === counter) {
-      console.log('good', counter);
+      if (counter === grid.length) {
+        setIsFinished(true);
+        setFinalTime(time);
+      }
+
       setCounter(prev => prev + 1);
-    } else {
-      console.log('failed');
-    }
-    if (counter === grid.length) {
-      console.log('congrads');
-      setIsFinished(true);
     }
   }
 
@@ -38,7 +48,7 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
           })}
         </SectionGridSt>
       ) : (
-        <SchulteFinished time={100} errors={2} onRestart={() => console.log('restart')} />
+        <SchulteFinished time={finalTime} errors={2} onRestart={() => console.log('restart')} />
       )}
     </>
   );
