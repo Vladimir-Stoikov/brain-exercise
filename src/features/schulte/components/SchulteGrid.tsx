@@ -7,15 +7,17 @@ import SchulteFinished from './SchulteFinished';
 
 interface SchulteGridProps {
   grid: number[];
+  onRestart: () => void;
 }
 
-export default function SchulteGrid({ grid }: SchulteGridProps) {
+export default function SchulteGrid({ grid, onRestart }: SchulteGridProps) {
   const [counter, setCounter] = useState<number>(1);
   const [isFinished, setIsFinished] = useState(false);
   const shuffledGrid = useMemo(() => generateSchulteGrid(grid), [grid]);
   const size = Math.sqrt(shuffledGrid.length);
   const [time, setTime] = useState(0);
   const [finalTime, setFinalTime] = useState<number>(0);
+  const [errors, setErrors] = useState<number>(0);
 
   useEffect(() => {
     if (isFinished) return;
@@ -35,6 +37,8 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
       }
 
       setCounter(prev => prev + 1);
+    } else {
+      setErrors(prev => prev + 1);
     }
   }
 
@@ -48,7 +52,7 @@ export default function SchulteGrid({ grid }: SchulteGridProps) {
           })}
         </SectionGridSt>
       ) : (
-        <SchulteFinished time={finalTime} errors={2} onRestart={() => console.log('restart')} />
+        <SchulteFinished time={finalTime} errors={errors} onRestart={onRestart} />
       )}
     </>
   );
