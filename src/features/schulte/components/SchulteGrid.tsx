@@ -40,6 +40,8 @@ export default function SchulteGrid({ grid, onRestart }: SchulteGridProps) {
     } else {
       setErrors(prev => prev + 1);
     }
+
+    return value === counter;
   }
 
   return (
