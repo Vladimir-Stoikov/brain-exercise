@@ -3,8 +3,8 @@ import { formatSchulteTime } from '../utils/formatSchulteTime'; // Adjust path a
 import { ActionButtonSt, FinishedContainerSt, FinishedTitleSt, StatRowSt, StatsGroupSt } from '../styled-components/FinishedContainerSt';
 
 interface SchulteFinishedProps {
-  time: number; // Time elapsed in seconds (e.g., 45)
-  errors: number; // Number of wrong clicks recorded during the round
+  time: number; 
+  errors: number; 
   onRestart: () => void;
 }
 
