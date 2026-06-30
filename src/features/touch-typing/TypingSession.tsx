@@ -6,7 +6,12 @@ import { TypingStats } from './styled-components/TypingStats.styled';
 import { TypingText } from './styled-components/TypingText.styled';
 import TouchKeyboard from './keyboard/TouchKeyboard';
 
-export default function TypingSession({ text }: { text: string }) {
+interface Props {
+  text: string;
+  onFinish: () => void;
+}
+
+export default function TypingSession({ text, onFinish }: Props) {
   const { difficulty } = useContext(DifficultyContext);
   const { currentIndex, isFinished, time, errors, accuracy, correctCount, wrongCount, corrected, correctedCount, handleKeyDown } = useTouchTyping(text, difficulty);
 
@@ -17,6 +22,12 @@ export default function TypingSession({ text }: { text: string }) {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    if (isFinished) {
+      onFinish();
+    }
+  }, [isFinished, onFinish]);
 
   return (
     <TypingLayout

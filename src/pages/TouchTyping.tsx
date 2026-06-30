@@ -1,22 +1,24 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import TypingSession from '../features/touch-typing/TypingSession';
 import ButtonSt from '../components/styled-components/ButtonSt.styled';
 import { TypingLayout } from '../features/touch-typing/styled-components/TypingLayout.styled';
 import { generateText } from '../utility/textGenerator/textGenerator';
 import { DifficultyContext } from '../utility/DifficultyContext';
 
-export default function TouchTypingPage() {
+export default function TouchTyping() {
   const [resetKey, setResetKey] = useState(0);
   const { difficulty } = useContext(DifficultyContext);
 
-  // const text = useMemo(() => generateText(2), [resetKey]);
   const [text, setText] = useState(() => generateText(difficulty));
 
   const [isStarted, setIsStarted] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
 
   function startTyping() {
     setIsStarted(true);
   }
+
+  const handleFinish = useCallback(() => setIsFinished(true), []);
 
   useEffect(() => {
     setText(generateText(difficulty));
@@ -28,16 +30,17 @@ export default function TouchTypingPage() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Enter') return;
 
+      e.preventDefault();
+
       if (!isStarted) {
         setIsStarted(true);
         return;
       }
 
-      const isFinished = document.querySelector('[data-finished="true"]');
-
       if (isFinished) {
         setResetKey(prev => prev + 1);
         setIsStarted(false);
+        setIsFinished(false);
       }
     };
 
@@ -46,7 +49,7 @@ export default function TouchTypingPage() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isStarted]);
+  }, [isStarted, isFinished, difficulty]);
 
   return (
     <TypingLayout>
@@ -59,7 +62,7 @@ export default function TouchTypingPage() {
 
       {!isStarted && <ButtonSt onClick={startTyping}>Start</ButtonSt>}
 
-      {isStarted && <TypingSession key={resetKey} text={text}></TypingSession>}
+      {isStarted && <TypingSession key={resetKey} text={text} onFinish={handleFinish}></TypingSession>}
 
       {isStarted && (
         <ButtonSt
