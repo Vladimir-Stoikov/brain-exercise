@@ -9,7 +9,7 @@ export default function TouchTyping() {
   const [resetKey, setResetKey] = useState(0);
   const { difficulty } = useContext(DifficultyContext);
 
-  const [text, setText] = useState(() => generateText(difficulty));
+  const [text, setText] = useState('');
 
   const [isStarted, setIsStarted] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
@@ -27,9 +27,7 @@ export default function TouchTyping() {
   const handleFinish = useCallback(() => setIsFinished(true), []);
 
   useEffect(() => {
-    setText(generateText(difficulty));
-    setResetKey(prev => prev + 1);
-    setIsStarted(false);
+    restart();
   }, [difficulty]);
 
   useEffect(() => {
