@@ -15,6 +15,7 @@ export default function TouchTyping() {
   const [isFinished, setIsFinished] = useState(false);
 
   function startTyping() {
+    setIsFinished(false);
     setIsStarted(true);
   }
 

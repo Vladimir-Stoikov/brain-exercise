@@ -40,7 +40,7 @@ export default function TouchKeyboard({ currentChar }: TouchKeyboardProps) {
 
             const isActive = isLetterActive || isCorrectShift || (shouldHighlightSpace && isSpaceKey);
             return (
-              <KeyButton key={button.key} $width={button.width} $anchor={button.anchor} $active={isActive}>
+              <KeyButton key={button.keyCode} $width={button.width} $anchor={button.anchor} $active={isActive}>
                 {button.key}
                 {isActive && <small>{isCorrectShift ? (activeFinger?.hand === 'L' ? 'R1' : 'L1') : activeFinger?.finger === 'T' ? 'Thumb' : `${activeFinger?.hand}${activeFinger?.finger}`}</small>}
               </KeyButton>
