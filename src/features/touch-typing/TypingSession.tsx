@@ -5,6 +5,7 @@ import { TypingLayout } from './styled-components/TypingLayout.styled';
 import { TypingStats } from './styled-components/TypingStats.styled';
 import { TypingText } from './styled-components/TypingText.styled';
 import TouchKeyboard from './keyboard/TouchKeyboard';
+import { formatTime } from '../../utility/formatTime';
 
 interface Props {
   text: string;
@@ -41,7 +42,7 @@ export default function TypingSession({ text, onFinish }: Props) {
       data-finished={isFinished}
     >
       <h3>
-        <span>Time ⏱: {time}</span>
+        <span>Time ⏱: {formatTime(time)}</span>
       </h3>
       <TypingText>
         {text.split('').map((char, index) => {

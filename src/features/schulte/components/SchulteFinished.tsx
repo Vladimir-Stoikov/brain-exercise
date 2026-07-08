@@ -1,10 +1,10 @@
 import React from 'react';
-import { formatSchulteTime } from '../utils/formatSchulteTime'; // Adjust path accordingly
 import { ActionButtonSt, FinishedContainerSt, FinishedTitleSt, StatRowSt, StatsGroupSt } from '../styled-components/FinishedContainerSt';
+import { formatTime } from '../../../utility/formatTime';
 
 interface SchulteFinishedProps {
-  time: number; 
-  errors: number; 
+  time: number;
+  errors: number;
   onRestart: () => void;
 }
 
@@ -19,7 +19,7 @@ export default function SchulteFinished({ time, errors, onRestart }: SchulteFini
       <StatsGroupSt>
         <StatRowSt>
           <span>Completion Time</span>
-          <span>{formatSchulteTime(time)}</span>
+          <span>{formatTime(time)}</span>
         </StatRowSt>
 
         <StatRowSt>
