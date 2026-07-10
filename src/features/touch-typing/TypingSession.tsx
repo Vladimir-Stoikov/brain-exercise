@@ -6,6 +6,7 @@ import { TypingStats } from './styled-components/TypingStats.styled';
 import { TypingText } from './styled-components/TypingText.styled';
 import TouchKeyboard from './keyboard/TouchKeyboard';
 import { formatTime } from '../../utility/formatTime';
+import countWPM from '../../utility/countWPM';
 
 interface Props {
   text: string;
@@ -69,9 +70,10 @@ export default function TypingSession({ text, onFinish }: Props) {
       </TypingText>
       {isFinished && (
         <TypingStats>
-          <span>Accuracy 🎯: {accuracy}%</span>
+          <span>🎯Accuracy: {accuracy}%</span>
           <span>✔ Correct: {correctCount}</span>
           <span>✖ Wrong: {wrongCount}</span>
+          <span>⚡ WPM: {countWPM(time, correctCount)}</span>
           {!isStrictMode && <span>🔧 Corrected: {correctedCount}</span>}
         </TypingStats>
       )}
