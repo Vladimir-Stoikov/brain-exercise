@@ -19,11 +19,12 @@ export default function TouchTyping() {
     setIsStarted(true);
   }
 
-  function restart() {
+  const restart = useCallback(() => {
+    setIsFinished(false);
     setResetKey(prev => prev + 1);
     setText(generateText(difficulty));
     setIsStarted(false);
-  }
+  }, [difficulty]);
 
   const handleFinish = useCallback(() => setIsFinished(true), []);
 
@@ -65,7 +66,7 @@ export default function TouchTyping() {
 
       {!isStarted && <ButtonSt onClick={startTyping}>Start</ButtonSt>}
 
-      {isStarted && <TypingSession key={resetKey} text={text} onFinish={handleFinish}></TypingSession>}
+      {isStarted && <TypingSession key={resetKey} text={text} onFinish={handleFinish} />}
 
       {isStarted && <ButtonSt onClick={restart}>Restart</ButtonSt>}
     </TypingLayout>
