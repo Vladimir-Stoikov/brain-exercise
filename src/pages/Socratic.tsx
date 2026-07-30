@@ -15,16 +15,26 @@ export default function SocraticPage() {
   const [answer, setAnswer] = useState('');
   const [question, setQuestion] = useState<string | boolean>(false);
   const [history, setHistory] = useState<SocraticHistoryItem[]>([]);
+  const [counter, setCounter] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
 
   function generateQuestion() {
-    const randomIndex = Math.floor(Math.random() * questions.length);
-    setQuestion(questions[randomIndex].text);
+    setQuestion(questions[counter].text);
+    setCounter(prev => prev + 1);
   }
 
   function handleAnswer() {
+    if (counter === questions.length - 1) {
+      setIsFinished(true);
+      setHistory(prev => [...prev, { answer: answer, question: question }]);
+    }
     setHistory(prev => [...prev, { answer: answer, question: question }]);
     generateQuestion();
     setAnswer('');
+  }
+
+  function restart() {
+    console.log('asdaa');
   }
 
   return (
@@ -46,9 +56,11 @@ export default function SocraticPage() {
 
       {!question ? <SocraticQuestion>Press Start to begin your Socratic dialogue.</SocraticQuestion> : <SocraticQuestion>{question}</SocraticQuestion>}
 
-      <SocraticAnswer value={answer} onChange={e => setAnswer(e.target.value)} placeholder='Your answer...' />
+      {!isFinished && <SocraticAnswer value={answer} onChange={e => setAnswer(e.target.value)} placeholder='Your answer...' />}
 
-      <SocraticControls>{!question ? <ButtonSt onClick={generateQuestion}>Start</ButtonSt> : <ButtonSt onClick={handleAnswer}>Next</ButtonSt>}</SocraticControls>
+      <SocraticControls>
+        {!question ? <ButtonSt onClick={generateQuestion}>Start</ButtonSt> : !isFinished ? <ButtonSt onClick={handleAnswer}>Next</ButtonSt> : <ButtonSt onClick={restart}>Restart</ButtonSt>}
+      </SocraticControls>
     </SocraticLayout>
   );
 }
