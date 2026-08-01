@@ -17,10 +17,17 @@ export default function SocraticPage() {
   const [history, setHistory] = useState<SocraticHistoryItem[]>([]);
   const [counter, setCounter] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [title, setTitle] = useState('');
 
   function generateQuestion() {
     setQuestion(questions[counter].text);
     setCounter(prev => prev + 1);
+  }
+
+  function handleStart() {
+    setTitle(answer);
+    generateQuestion();
+    setAnswer('');
   }
 
   function handleAnswer() {
@@ -39,7 +46,7 @@ export default function SocraticPage() {
 
   return (
     <SocraticLayout>
-      <h2>Socratic Question</h2>
+      <h2>{!title ? 'Socratic Question' : title}</h2>
 
       {history &&
         history.map((item, index) => (
@@ -54,12 +61,12 @@ export default function SocraticPage() {
           </div>
         ))}
 
-      {!question ? <SocraticQuestion>Press Start to begin your Socratic dialogue.</SocraticQuestion> : <SocraticQuestion>{question}</SocraticQuestion>}
+      {!question ? <SocraticQuestion>Write your question and press start</SocraticQuestion> : <SocraticQuestion>{question}</SocraticQuestion>}
 
       {!isFinished && <SocraticAnswer value={answer} onChange={e => setAnswer(e.target.value)} placeholder='Your answer...' />}
 
       <SocraticControls>
-        {!question ? <ButtonSt onClick={generateQuestion}>Start</ButtonSt> : !isFinished ? <ButtonSt onClick={handleAnswer}>Next</ButtonSt> : <ButtonSt onClick={restart}>Restart</ButtonSt>}
+        {!question ? <ButtonSt onClick={handleStart}>Start</ButtonSt> : !isFinished ? <ButtonSt onClick={handleAnswer}>Next</ButtonSt> : <ButtonSt onClick={restart}>Restart</ButtonSt>}
       </SocraticControls>
     </SocraticLayout>
   );
