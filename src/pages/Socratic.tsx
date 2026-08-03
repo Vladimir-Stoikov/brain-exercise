@@ -21,32 +21,45 @@ export default function SocraticPage() {
 
   function generateQuestion() {
     setQuestion(questions[counter].text);
-    setCounter(prev => prev + 1);
   }
 
   function handleStart() {
     setTitle(answer);
     generateQuestion();
     setAnswer('');
+    setCounter(1);
   }
 
   function handleAnswer() {
-    if (counter === questions.length - 1) {
-      setIsFinished(true);
-      setHistory(prev => [...prev, { answer: answer, question: question }]);
-    }
+    console.log(counter);
     setHistory(prev => [...prev, { answer: answer, question: question }]);
-    generateQuestion();
+    const nextCounter = counter + 1;
+
+    if (nextCounter > questions.length) {
+      setIsFinished(true);
+    } else {
+      setCounter(nextCounter);
+      generateQuestion();
+    }
+
     setAnswer('');
   }
 
   function restart() {
-    console.log('asdaa');
+    setAnswer('');
+    setQuestion(false);
+    setHistory([]);
+    setCounter(0);
+    setIsFinished(false);
+    setTitle('');
   }
 
   return (
     <SocraticLayout>
-      <h2>{!title ? 'Socratic Question' : title}</h2>
+      <h2>
+        {!title ? 'Socratic Question' : title}
+        {isFinished.toString()}
+      </h2>
 
       {history &&
         history.map((item, index) => (
@@ -61,7 +74,13 @@ export default function SocraticPage() {
           </div>
         ))}
 
-      {!question ? <SocraticQuestion>Write your question and press start</SocraticQuestion> : <SocraticQuestion>{question}</SocraticQuestion>}
+      {!question ? (
+        <SocraticQuestion>Write your question and press start</SocraticQuestion>
+      ) : !isFinished ? (
+        <SocraticQuestion>{question}</SocraticQuestion>
+      ) : (
+        <SocraticQuestion>And it is what it is</SocraticQuestion>
+      )}
 
       {!isFinished && <SocraticAnswer value={answer} onChange={e => setAnswer(e.target.value)} placeholder='Your answer...' />}
 

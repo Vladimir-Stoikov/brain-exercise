@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SocraticQuestion = styled.div`
   width: 100%;
   min-height: 100px;
-
+  text-align: center;
   padding: 20px;
 
   border: 1px solid var(--secondary-light);
