@@ -13,25 +13,20 @@ interface SocraticHistoryItem {
 
 export default function SocraticPage() {
   const [answer, setAnswer] = useState('');
-  const [question, setQuestion] = useState<string | boolean>(false);
+  const [question, setQuestion] = useState('');
   const [history, setHistory] = useState<SocraticHistoryItem[]>([]);
   const [counter, setCounter] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [title, setTitle] = useState('');
 
-  function generateQuestion() {
-    setQuestion(questions[counter].text);
-  }
-
   function handleStart() {
     setTitle(answer);
-    generateQuestion();
+    setQuestion(questions[counter].text);
     setAnswer('');
     setCounter(1);
   }
 
   function handleAnswer() {
-    console.log(counter);
     setHistory(prev => [...prev, { answer: answer, question: question }]);
     const nextCounter = counter + 1;
 
@@ -39,7 +34,7 @@ export default function SocraticPage() {
       setIsFinished(true);
     } else {
       setCounter(nextCounter);
-      generateQuestion();
+      setQuestion(questions[counter].text);
     }
 
     setAnswer('');
@@ -47,7 +42,7 @@ export default function SocraticPage() {
 
   function restart() {
     setAnswer('');
-    setQuestion(false);
+    setQuestion('');
     setHistory([]);
     setCounter(0);
     setIsFinished(false);
@@ -61,18 +56,17 @@ export default function SocraticPage() {
         {isFinished.toString()}
       </h2>
 
-      {history &&
-        history.map((item, index) => (
-          <div key={index}>
-            <p>
-              <strong>Q:</strong> {item.question}
-            </p>
+      {history.map((item, index) => (
+        <div key={index}>
+          <p>
+            <strong>Q:</strong> {item.question}
+          </p>
 
-            <p>
-              <strong>A:</strong> {item.answer}
-            </p>
-          </div>
-        ))}
+          <p>
+            <strong>A:</strong> {item.answer}
+          </p>
+        </div>
+      ))}
 
       {!question ? (
         <SocraticQuestion>Write your question and press start</SocraticQuestion>
