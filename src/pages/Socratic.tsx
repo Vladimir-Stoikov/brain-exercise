@@ -18,15 +18,25 @@ export default function SocraticPage() {
   const [counter, setCounter] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [title, setTitle] = useState('');
+  const [placeHolderAnsw, setPlaceHolderAnsw] = useState('Your question ...');
 
   function handleStart() {
+    if (answer.length <= 0) {
+      setPlaceHolderAnsw("DON'T LEAVE THIS FIELD BLANK");
+      return;
+    }
     setTitle(answer);
     setQuestion(questions[counter].text);
     setAnswer('');
     setCounter(1);
+    setPlaceHolderAnsw('Your answer ...');
   }
 
   function handleAnswer() {
+    if (answer.length <= 0) {
+      setPlaceHolderAnsw("DON'T LEAVE THIS FIELD BLANK");
+      return;
+    }
     setHistory(prev => [...prev, { answer: answer, question: question }]);
     const nextCounter = counter + 1;
 
@@ -35,6 +45,7 @@ export default function SocraticPage() {
     } else {
       setCounter(nextCounter);
       setQuestion(questions[counter].text);
+      setPlaceHolderAnsw('Your answer ...');
     }
 
     setAnswer('');
@@ -76,7 +87,7 @@ export default function SocraticPage() {
         <SocraticQuestion>And it is what it is</SocraticQuestion>
       )}
 
-      {!isFinished && <SocraticAnswer value={answer} onChange={e => setAnswer(e.target.value)} placeholder='Your answer...' />}
+      {!isFinished && <SocraticAnswer value={answer} onChange={e => setAnswer(e.target.value)} placeholder={placeHolderAnsw} />}
 
       <SocraticControls>
         {!question ? <ButtonSt onClick={handleStart}>Start</ButtonSt> : !isFinished ? <ButtonSt onClick={handleAnswer}>Next</ButtonSt> : <ButtonSt onClick={restart}>Restart</ButtonSt>}
