@@ -1,4 +1,3 @@
-import React from 'react';
 import StroopGame from '../features/stroop/StroopGame';
 
 export default function Stroop() {

@@ -1,8 +1,6 @@
-import React, { useContext, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import UlSt from './styled-components/UlSt.styled';
 import ButtonSt from './styled-components/ButtonSt.styled';
-import { DifficultyContext } from '../utility/DifficultyContext';
 import DifficultySwitch from './DifficultySwitch';
 
 export default function NavBar() {
@@ -12,7 +10,6 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   const isHomePage = location.pathname === '/';
-  const { difficulty, setDifficulty } = useContext(DifficultyContext);
 
   function prevHandler() {
     const next = index === 0 ? 0 : index - 1;
