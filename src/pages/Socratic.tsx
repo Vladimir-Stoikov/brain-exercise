@@ -5,6 +5,7 @@ import { SocraticAnswer } from '../features/socratic-question/styled-components/
 import { SocraticQuestion } from '../features/socratic-question/styled-components/SocraticQuestion.styled';
 import { SocraticControls } from '../features/socratic-question/styled-components/SocraticControls.styled';
 import { questions } from '../features/socratic-question/data/questions';
+import SocraticHistoryItem from '../features/socratic-question/components/SocraticHistoryItem';
 
 interface SocraticHistoryItem {
   question: string | boolean;
@@ -68,15 +69,7 @@ export default function SocraticPage() {
       </h2>
 
       {history.map((item, index) => (
-        <div key={index}>
-          <p>
-            <strong>Q:</strong> {item.question}
-          </p>
-
-          <p>
-            <strong>A:</strong> {item.answer}
-          </p>
-        </div>
+        <SocraticHistoryItem key={index} question={item.question} answer={item.answer} />
       ))}
 
       {!question ? (
