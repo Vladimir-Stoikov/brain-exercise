@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router';
-import './App.css';
 import NavBar from './components/NavBar';
 import MainSt from './components/styled-components/MainSt.styled';
 import { useState } from 'react';

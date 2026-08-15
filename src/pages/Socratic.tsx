@@ -63,10 +63,7 @@ export default function SocraticPage() {
 
   return (
     <SocraticLayout>
-      <h2>
-        {!title ? 'Socratic Question' : title}
-        {isFinished.toString()}
-      </h2>
+      <h2>{!title ? 'Socratic Question' : title}</h2>
 
       {history.map((item, index) => (
         <SocraticHistoryItem key={index} question={item.question} answer={item.answer} />

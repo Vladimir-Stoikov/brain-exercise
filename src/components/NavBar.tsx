@@ -31,7 +31,7 @@ export default function NavBar() {
         <UlSt>
           <li>
             <NavLink style={{ cursor: 'pointer' }} to='/schulte'>
-              Начать
+              Start
             </NavLink>
           </li>
         </UlSt>
@@ -39,17 +39,17 @@ export default function NavBar() {
         <UlSt>
           <li>
             <NavLink style={{ cursor: 'pointer' }} to='/'>
-              Начать заново
+              Restart
             </NavLink>
           </li>
           <li>
             <ButtonSt onClick={prevHandler} style={{ cursor: 'pointer' }} disabled={index === 0}>
-              Прошлое
+              Previous
             </ButtonSt>
           </li>
           <li>
             <ButtonSt onClick={nextHandler} style={{ cursor: 'pointer' }} disabled={index === pages.length - 1}>
-              Следующее
+              Next
             </ButtonSt>
           </li>
         </UlSt>
