@@ -6,5 +6,5 @@ interface Props {
 }
 
 export default function StroopWord({ text, color }: Props) {
-  return <StroopWordSt style={{ color, fontSize: '3rem' }}>{text}</StroopWordSt>;
+  return <StroopWordSt $color={color}>{text}</StroopWordSt>;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ButtonCellSt from '../styled-components/ButtonCellSt.styled';
 import type { SchulteValue } from '../utils/schulteTypes';
 

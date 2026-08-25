@@ -1,3 +1,4 @@
+import type { Color } from '../utils/stroopData';
 import { StroopButton } from './styled-components/StroopButton.styled';
 
 interface Props {
@@ -9,7 +10,7 @@ export default function StroopControls({ colors, onSelect, disabled }: Props) {
   return (
     <div>
       {colors.map(color => (
-        <StroopButton key={color.name} disabled={disabled} onClick={() => onSelect(color.value)}>
+        <StroopButton key={color.name} $color={color.value} disabled={disabled} onClick={() => onSelect(color.value)}>
           {color.name}
         </StroopButton>
       ))}

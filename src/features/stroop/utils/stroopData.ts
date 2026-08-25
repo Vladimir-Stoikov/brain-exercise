@@ -6,6 +6,9 @@ export const COLORS = [
   { name: 'ORANGE', value: 'orange' },
   { name: 'PURPLE', value: 'purple' },
 ];
+
+export type Color = (typeof COLORS)[number];
+
 export function getRandomColor() {
   return COLORS[Math.floor(Math.random() * COLORS.length)];
 }

@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { COLORS, getRandomColor } from './utils/stroopData';
 import StroopWord from './components/StroopWord';
 import StroopControls from './components/StroopControls';
-import { StroopButton } from './components/styled-components/StroopButton.styled';
 import { FeedbackText } from './components/styled-components/Feedback.styled';
 import { StatsRow } from './components/styled-components/Stats.styled';
 import { TimerBar } from './components/styled-components/TimerBar.styled';
+import ButtonSt from '../../components/styled-components/ButtonSt.styled';
 
 const ROUND_TIME_MS = 3000;
 
@@ -87,7 +87,7 @@ export default function StroopGame() {
 
   return (
     <div>
-      {!isStarted && <StroopButton onClick={startGame}>Start</StroopButton>}
+      {!isStarted && <ButtonSt onClick={startGame}>Start</ButtonSt>}
 
       {isStarted && round && (
         <>
@@ -101,9 +101,9 @@ export default function StroopGame() {
 
       {result && <FeedbackText $type={result}>{result === 'correct' ? 'Correct' : 'Wrong'}</FeedbackText>}
 
-      <StroopButton onClick={nextRound} disabled={!result}>
+      <ButtonSt onClick={nextRound} disabled={!result}>
         Next
-      </StroopButton>
+      </ButtonSt>
 
       <StatsRow>
         <span>✔: {correctCount}</span>

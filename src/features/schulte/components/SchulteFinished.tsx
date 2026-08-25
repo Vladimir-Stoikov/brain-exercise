@@ -1,4 +1,3 @@
-import React from 'react';
 import { ActionButtonSt, FinishedContainerSt, FinishedTitleSt, StatRowSt, StatsGroupSt } from '../styled-components/FinishedContainerSt';
 import { formatTime } from '../../../utility/formatTime';
 

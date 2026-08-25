@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { DifficultyContext } from '../utility/DifficultyContext';
+import { DifficultyContext, type DifficultyValues } from '../utility/DifficultyContext';
 import { DifficultyWrapper, DifficultyButton } from './styled-components/DifficultySwitch.styled';
 
-const DIFFICULTIES = [
+const DIFFICULTIES: { value: DifficultyValues; label: string }[] = [
   { value: 'easy', label: 'Easy' },
   { value: 'medium', label: 'Medium' },
   { value: 'hard', label: 'Hard' },

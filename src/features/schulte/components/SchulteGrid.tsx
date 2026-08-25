@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import SchulteCell from './SchulteCell';
 import SectionGridSt from '../styled-components/SectionGridSt.styled';
 import { generateSchulteGrid } from '../utils/generateSchulteGrid';
