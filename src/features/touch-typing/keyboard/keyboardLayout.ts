@@ -1,4 +1,6 @@
-export const keyboardRows = [
+import type { KeyboardButton } from "../../../utility/types";
+
+export const keyboardRows: KeyboardButton[][] = [
   [
     { key: '`', keyCode: 'Backquote' },
     { key: '1', keyCode: 'Digit1' },

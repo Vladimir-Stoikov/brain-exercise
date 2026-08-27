@@ -1,10 +1,5 @@
 import styled, { css } from 'styled-components';
-
-type KeyButtonProps = {
-  $width?: 'medium' | 'large' | 'xlarge' | 'space';
-  $anchor?: boolean;
-  $active?: boolean;
-};
+import type { KeyButtonProps } from '../../../../utility/types';
 
 export const KeyButton = styled.div<KeyButtonProps>`
   height: 52px;
