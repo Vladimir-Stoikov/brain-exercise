@@ -4,7 +4,7 @@ import ButtonSt from './styled-components/ButtonSt.styled';
 import DifficultySwitch from './DifficultySwitch';
 
 export default function NavBar() {
-  const pages: string[] = ['/schulte', '/stroop', '/touch-typing', '/socratic', '/reverse-reading'];
+  const pages: string[] = ['/schulte', '/stroop', '/touch-typing', '/socratic'];
   const location = useLocation();
   const index = pages.indexOf(location.pathname);
   const navigate = useNavigate();

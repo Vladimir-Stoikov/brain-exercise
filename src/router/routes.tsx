@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, type ReactElement } from 'react';
 import { createBrowserRouter } from 'react-router';
 import App from '../App';
 import NotFoundPage from '../pages/NotFoundPage';
@@ -9,7 +9,7 @@ const Stroop = lazy(() => import('../pages/Stroop'));
 const TouchTyping = lazy(() => import('../pages/TouchTyping'));
 const Socratic = lazy(() => import('../pages/Socratic'));
 
-const withSuspense = (element: JSX.Element) => <Suspense fallback={<div style={{ padding: '2rem' }}>Loading...</div>}>{element}</Suspense>;
+const withSuspense = (element: ReactElement) => <Suspense fallback={<div style={{ padding: '2rem' }}>Loading...</div>}>{element}</Suspense>;
 
 export const router = createBrowserRouter([
   {

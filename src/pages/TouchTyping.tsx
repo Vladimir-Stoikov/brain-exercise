@@ -30,7 +30,7 @@ export default function TouchTyping() {
 
   useEffect(() => {
     restart();
-  }, [difficulty]);
+  }, [restart]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -53,7 +53,7 @@ export default function TouchTyping() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isStarted, isFinished, difficulty]);
+  }, [isStarted, isFinished, restart]);
 
   return (
     <TypingLayout>
