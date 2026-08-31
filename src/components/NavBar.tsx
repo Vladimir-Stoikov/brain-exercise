@@ -11,6 +11,9 @@ export default function NavBar() {
 
   const isHomePage = location.pathname === '/';
 
+  const difficultyRoutes = ['/schulte', '/stroop', '/touch-typing'];
+  const showDifficulty = difficultyRoutes.includes(location.pathname);
+
   function prevHandler() {
     const next = index === 0 ? 0 : index - 1;
     if (next !== index) {
@@ -54,7 +57,7 @@ export default function NavBar() {
           </li>
         </UlSt>
       )}
-      <DifficultySwitch />
+      {showDifficulty && <DifficultySwitch />}
     </>
   );
 }

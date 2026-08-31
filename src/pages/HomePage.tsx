@@ -9,7 +9,7 @@ export default function HomePage() {
 
       <HomeText>A set of short exercises to train attention, reaction, and cognitive flexibility.</HomeText>
 
-      <HomeText>🧠 Schulte · 🎨 Stroop · ⌨ Touch Typing · 📖 Reading</HomeText>
+      <HomeText>🧠 Schulte · 🎨 Stroop · ⌨ Touch Typing · 📖 Reasoning</HomeText>
     </HomeWrapper>
   );
 }
