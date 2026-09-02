@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# Brain Exercise
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React + TypeScript web application with a collection of interactive exercises designed to train attention, reaction speed, memory, and typing skills.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Schulte Table** — find numbers in the correct order as quickly as possible.
+- **Stroop Test** — identify the displayed color while ignoring conflicting word meanings.
+- **Touch Typing** — practice typing speed and accuracy with different difficulty levels.
+- **Socratic Questions** — reflect on open-ended questions and keep a history of your answers.
+- **Difficulty System** — adjustable difficulty for exercises that support it.
+- **Responsive UI** — designed to work across different screen sizes.
+- **Error Boundary** — prevents a single component error from breaking the entire application.
+- **Lazy Loading** — application pages are loaded on demand.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- React Router
+- Styled Components
+- Vite
+- ESLint
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The project is organized around features rather than keeping all application logic in a single directory.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+src/
+├── components/       # Shared UI components
+├── features/         # Exercise-specific components, hooks and data
+├── hooks/             # Shared custom hooks
+├── pages/             # Application pages
+├── router/            # Routing configuration
+├── utility/           # Shared context and utilities
+├── App.tsx
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Requirements
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js
+- npm
+
+### Installation
+
+Clone the repository and install dependencies:
+
+```bash
+npm install
 ```
+
+### Development
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+### Production Build
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+### Lint
+
+Run ESLint:
+
+```bash
+npm run lint
+```
+
+## Purpose
+
+This project was created as a personal React + TypeScript practice project.
+
+The main goal was to practice building an application with reusable components, custom hooks, typed data, routing, context, feature-based structure, and interactive UI logic.
+
+## Status
+
+Completed as a personal pet project.
