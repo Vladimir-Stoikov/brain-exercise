@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactElement } from 'react';
-import { createBrowserRouter } from 'react-router';
+import { createHashRouter } from 'react-router';
 import App from '../App';
 import NotFoundPage from '../pages/NotFoundPage';
 
@@ -11,7 +11,7 @@ const Socratic = lazy(() => import('../pages/Socratic'));
 
 const withSuspense = (element: ReactElement) => <Suspense fallback={<div style={{ padding: '2rem' }}>Loading...</div>}>{element}</Suspense>;
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: <App />,
